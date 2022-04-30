@@ -49,7 +49,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   InputField(
                     controller: _emailController,
-                    validator: (val) {},
                     hint: 'email',
                     icon: const Icon(Icons.mail),
                   ),
@@ -58,7 +57,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     controller: _passwordController,
                     hint: 'password',
                     password: true,
-                    validator: (val) {},
                     icon: const Icon(Icons.lock),
                     prefixIcon: const Icon(
                       Icons.remove_red_eye,
