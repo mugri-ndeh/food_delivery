@@ -24,9 +24,10 @@ class _AuthButtonState extends State<AuthButton> {
             color: Palette.primaryGreen,
             boxShadow: [
               BoxShadow(
-                  offset: Offset(2, 5),
-                  color: Palette.primaryGreen.withOpacity(0.1),
-                  blurRadius: 15)
+                offset: const Offset(2, 5),
+                color: Palette.primaryGreen.withOpacity(0.1),
+                blurRadius: 15,
+              )
             ],
             borderRadius: BorderRadius.circular(32)),
         child: Center(
