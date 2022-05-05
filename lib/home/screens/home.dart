@@ -21,6 +21,18 @@ class _HomeState extends State<Home> {
     super.initState();
   }
 
+  List<String> categories = [
+    'Dishes',
+    'Raw food',
+    'Drinks',
+  ];
+  List<IconData> icons = [
+    Icons.local_restaurant_outlined,
+    Icons.food_bank_outlined,
+    Icons.local_drink_outlined,
+  ];
+  int _selectedindex = 0;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -43,35 +55,35 @@ class _HomeState extends State<Home> {
         ],
       ),
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 200,
-              child: Stack(children: [
-                Container(
-                  height: 130,
-                  decoration: BoxDecoration(
-                    color: Palette.scaffoldBg,
-                    borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20)),
-                    boxShadow: [
-                      BoxShadow(
-                          offset: const Offset(0, 1),
-                          color: Palette.primaryGreen.withOpacity(0.09),
-                          blurRadius: 2),
-                    ],
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 150,
+                child: Stack(children: [
+                  Container(
+                    height: 130,
+                    decoration: BoxDecoration(
+                      color: Palette.scaffoldBg,
+                      borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20)),
+                      boxShadow: [
+                        BoxShadow(
+                            offset: const Offset(0, 1),
+                            color: Palette.primaryGreen.withOpacity(0.09),
+                            blurRadius: 2),
+                      ],
+                    ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                          children: const [
                             Text(
                               'Find Your',
                               style: TextStyle(
@@ -95,21 +107,121 @@ class _HomeState extends State<Home> {
                       ],
                     ),
                   ),
+                  Positioned(
+                    top: 80,
+                    child: SizedBox(
+                        width: size.width,
+                        child: InputField(
+                          hint: 'What do you want to order',
+                          icon: const Icon(Icons.search),
+                        )),
+                  )
+                ]),
+              ),
+              Container(
+                width: size.width,
+                height: 50,
+                color: Colors.transparent,
+                child: ListView.builder(
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _selectedindex = index;
+                      });
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 4),
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                      offset: Offset(0, 2),
+                                      blurRadius: 2,
+                                      spreadRadius: 1,
+                                      color:
+                                          Palette.primaryGreen.withOpacity(0.1))
+                                ],
+                                borderRadius: BorderRadius.circular(20),
+                                color: _selectedindex == index
+                                    ? Palette.primaryGreen
+                                    : Palette.white,
+                              ),
+                              child: Row(
+                                children: [
+                                  CircleAvatar(
+                                      backgroundColor: _selectedindex == index
+                                          ? Palette.white
+                                          : Palette.scaffoldBg,
+                                      radius: 14,
+                                      child: Icon(
+                                        icons[index],
+                                        size: 16,
+                                        color: _selectedindex == index
+                                            ? Palette.borderGreen
+                                            : Palette.primaryGreen,
+                                      )),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(categories[index],
+                                      style: TextStyle(
+                                          color: _selectedindex == index
+                                              ? Palette.white
+                                              : Palette.borderGreen,
+                                          fontWeight: _selectedindex == index
+                                              ? FontWeight.bold
+                                              : FontWeight.w100,
+                                          fontSize: 18))
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: categories.length,
                 ),
-                Positioned(
-                  top: 80,
-                  child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      width: size.width,
-                      child: InputField(
-                        hint: 'What do you want to order',
-                        icon: Icon(Icons.search),
-                      )),
-                )
-              ]),
-            ),
-            const SizedBox(height: 10),
-          ],
+              ),
+              const SizedBox(height: 15),
+              SizedBox(
+                height: size.height,
+                child: IndexedStack(
+                  index: _selectedindex,
+                  children: [
+                    Column(
+                      children: [
+                        CustomContainer(
+                            height: 150,
+                            width: 200,
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                    height: 100,
+                                    child:
+                                        Image.asset('assets/images/Logo.png')),
+                                Container(
+                                  height: 50,
+                                )
+                              ],
+                            ))
+                      ],
+                    ),
+                    Container(),
+                    Container(),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
