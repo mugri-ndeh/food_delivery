@@ -20,6 +20,28 @@ class _BaseScreenState extends State<BaseScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: Stack(
+        children: [
+          FloatingActionButton(
+            backgroundColor: Palette.primaryGreen,
+            onPressed: () {},
+            child: Icon(
+              Icons.shopping_cart_outlined,
+              color: Palette.white,
+            ),
+            tooltip: 'Cart',
+          ),
+          const Positioned(
+              right: 0,
+              child: CircleAvatar(
+                radius: 10,
+                child: Text(
+                  '0',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ))
+        ],
+      ),
       body: SafeArea(
         child: IndexedStack(
           index: _selectedIndex,
