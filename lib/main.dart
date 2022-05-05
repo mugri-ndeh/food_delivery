@@ -15,9 +15,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.orange,
-        textTheme: GoogleFonts.poppinsTextTheme(),
-      ),
+          primarySwatch: Palette.primarySwatchColor,
+          textTheme: GoogleFonts.poppinsTextTheme(),
+          scaffoldBackgroundColor: Palette.scaffoldBg),
       home: const LoginScreen(),
     );
   }
