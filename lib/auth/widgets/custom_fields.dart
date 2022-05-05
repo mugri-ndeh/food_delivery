@@ -237,11 +237,13 @@ var elevatedDecoration = BoxDecoration(
 );
 
 class CustomContainer extends StatefulWidget {
-  CustomContainer({Key? key, this.height, this.width, this.child})
+  const CustomContainer(
+      {Key? key, this.height, this.width, this.child, this.padding})
       : super(key: key);
   final double? height;
   final Widget? child;
   final double? width;
+  final double? padding;
 
   @override
   State<CustomContainer> createState() => _CustomContainer();
@@ -253,12 +255,14 @@ class _CustomContainer extends State<CustomContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 4),
+        padding: widget.padding == null
+            ? EdgeInsets.zero
+            : const EdgeInsets.symmetric(horizontal: 4),
         height: widget.height,
         width: widget.width,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
                 offset: const Offset(0, 1),
@@ -267,5 +271,95 @@ class _CustomContainer extends State<CustomContainer> {
           ],
         ),
         child: widget.child);
+  }
+}
+
+class FoodCard extends StatelessWidget {
+  const FoodCard(
+      {Key? key,
+      required this.imagePath,
+      required this.foodName,
+      required this.price})
+      : super(key: key);
+  final String imagePath;
+  final String foodName;
+  final String price;
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomContainer(
+        height: 150,
+        width: 180,
+        child: Column(
+          children: [
+            Stack(
+              alignment: Alignment.topCenter,
+              children: [
+                Container(
+                  height: 100,
+                  width: 180,
+                  child: ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(8),
+                          topRight: Radius.circular(8)),
+                      child: Image.asset(imagePath, fit: BoxFit.cover)),
+                ),
+                Positioned(
+                  top: 0,
+                  child: SizedBox(
+                    height: 50,
+                    width: 170,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CustomContainer(
+                          padding: 2,
+                          height: 30,
+                          width: 50,
+                          child: Center(
+                              child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: const [
+                              Text('4.5'),
+                              Icon(
+                                Icons.star,
+                                size: 16,
+                                color: Colors.yellow,
+                              )
+                            ],
+                          )),
+                        ),
+                        const CustomContainer(
+                          height: 30,
+                          width: 30,
+                          child: Icon(
+                            Icons.heart_broken,
+                            color: Colors.red,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              width: 200,
+              height: 50,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(foodName),
+                  Text(
+                    '$price FCFA',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  )
+                ],
+              ),
+            )
+          ],
+        ));
   }
 }
