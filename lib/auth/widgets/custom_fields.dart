@@ -235,3 +235,37 @@ var elevatedDecoration = BoxDecoration(
         blurRadius: 18),
   ],
 );
+
+class CustomContainer extends StatefulWidget {
+  CustomContainer({Key? key, this.height, this.width, this.child})
+      : super(key: key);
+  final double? height;
+  final Widget? child;
+  final double? width;
+
+  @override
+  State<CustomContainer> createState() => _CustomContainer();
+}
+
+class _CustomContainer extends State<CustomContainer> {
+  bool visible = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 4),
+        height: widget.height,
+        width: widget.width,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+                offset: const Offset(0, 1),
+                color: Colors.grey.shade200,
+                blurRadius: 18),
+          ],
+        ),
+        child: widget.child);
+  }
+}
