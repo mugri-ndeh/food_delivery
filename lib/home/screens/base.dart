@@ -14,6 +14,8 @@ class BaseScreen extends StatefulWidget {
 class _BaseScreenState extends State<BaseScreen> {
   List<Widget> _pages = [
     Home(),
+    Scaffold(),
+    Scaffold(),
     Profile(),
   ];
   int _selectedIndex = 0;
@@ -90,7 +92,7 @@ class _BaseScreenState extends State<BaseScreen> {
                 padding: const EdgeInsets.all(10),
                 onPressed: () {
                   setState(() {
-                    // _selectedIndex = 1;
+                    _selectedIndex = 1;
                   });
                 },
                 icon: Icons.shopping_cart_outlined,
@@ -100,7 +102,7 @@ class _BaseScreenState extends State<BaseScreen> {
                 padding: const EdgeInsets.all(10),
                 onPressed: () {
                   setState(() {
-                    // _selectedIndex = 2;
+                    _selectedIndex = 2;
                   });
                 },
                 icon: Icons.message_outlined,
@@ -110,7 +112,7 @@ class _BaseScreenState extends State<BaseScreen> {
                 padding: const EdgeInsets.all(10),
                 onPressed: () {
                   setState(() {
-                    _selectedIndex = 1;
+                    _selectedIndex = 3;
                   });
                 },
                 icon: Icons.person_outline_outlined,
