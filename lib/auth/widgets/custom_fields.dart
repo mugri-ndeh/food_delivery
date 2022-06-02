@@ -1,7 +1,7 @@
 import 'package:delivery_app/home/models/food_item.dart';
 import 'package:delivery_app/util/palette.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+// import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -143,73 +143,73 @@ class _PhoneInputState extends State<PhoneInput> {
   }
 }
 
-class CustomDate extends StatefulWidget {
-  CustomDate({
-    Key? key,
-    required this.hint,
-    required this.prefixIcon,
-    this.controller,
-  }) : super(key: key);
-  final String hint;
-  final Icon prefixIcon;
-  final TextEditingController? controller;
+// class CustomDate extends StatefulWidget {
+//   CustomDate({
+//     Key? key,
+//     required this.hint,
+//     required this.prefixIcon,
+//     this.controller,
+//   }) : super(key: key);
+//   final String hint;
+//   final Icon prefixIcon;
+//   final TextEditingController? controller;
 
-  @override
-  State<CustomDate> createState() => CustomDateState();
-}
-
-class CustomDateState extends State<CustomDate> {
-  String pickedDate = '';
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        DatePicker.showDatePicker(context,
-            theme: const DatePickerTheme(
-              containerHeight: 210.0,
-            ),
-            showTitleActions: true,
-            minTime: DateTime(1950, 1, 1),
-            maxTime: DateTime.now(), onConfirm: (date) async {
-          // ignore: avoid_print
-          print('confirm $date');
-          setState(() {
-            widget.controller!.text = '${date.day}/${date.month}/${date.year}';
-          });
-        },
-            currentTime: DateTime.now().subtract(const Duration(days: 20)),
-            locale: LocaleType.en);
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          color: Palette.white,
-          boxShadow: [
-            BoxShadow(
-                offset: const Offset(0, 1),
-                color: Colors.grey.shade200,
-                blurRadius: 18),
-          ],
-        ),
-        alignment: Alignment.center,
-        height: 50.0,
-        child: TextFormField(
-          controller: widget.controller,
-          enabled: false,
-          decoration: InputDecoration(
-            prefixIcon: widget.prefixIcon,
-            hintText: widget.hint,
-            hintStyle: const TextStyle(color: Colors.grey),
-            enabledBorder: InputBorder.none,
-            focusedBorder: InputBorder.none,
-            errorBorder: InputBorder.none,
-            disabledBorder: InputBorder.none,
-            focusedErrorBorder: InputBorder.none,
-          ),
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   State<CustomDate> createState() => CustomDateState();
+// }
+//
+// class CustomDateState extends State<CustomDate> {
+//   String pickedDate = '';
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: () {
+//         DatePicker.showDatePicker(context,
+//             theme: const DatePickerTheme(
+//               containerHeight: 210.0,
+//             ),
+//             showTitleActions: true,
+//             minTime: DateTime(1950, 1, 1),
+//             maxTime: DateTime.now(), onConfirm: (date) async {
+//           // ignore: avoid_print
+//           print('confirm $date');
+//           setState(() {
+//             widget.controller!.text = '${date.day}/${date.month}/${date.year}';
+//           });
+//         },
+//             currentTime: DateTime.now().subtract(const Duration(days: 20)),
+//             locale: LocaleType.en);
+//       },
+//       child: Container(
+//         decoration: BoxDecoration(
+//           color: Palette.white,
+//           boxShadow: [
+//             BoxShadow(
+//                 offset: const Offset(0, 1),
+//                 color: Colors.grey.shade200,
+//                 blurRadius: 18),
+//           ],
+//         ),
+//         alignment: Alignment.center,
+//         height: 50.0,
+//         child: TextFormField(
+//           controller: widget.controller,
+//           enabled: false,
+//           decoration: InputDecoration(
+//             prefixIcon: widget.prefixIcon,
+//             hintText: widget.hint,
+//             hintStyle: const TextStyle(color: Colors.grey),
+//             enabledBorder: InputBorder.none,
+//             focusedBorder: InputBorder.none,
+//             errorBorder: InputBorder.none,
+//             disabledBorder: InputBorder.none,
+//             focusedErrorBorder: InputBorder.none,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class PaymentMethodPopup extends StatefulWidget {
   PaymentMethodPopup({Key? key}) : super(key: key);
