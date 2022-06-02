@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 
 class Palette {
-  static Color primaryGreen = const Color(0XFFF8774A);
+  static Color primaryColor = const Color(0XFFF8774A);
+  static Color buttonColor = const Color(0XFFF8774A);
+
   static Color secondaryColor = Color.fromARGB(255, 240, 155, 124);
 
   static Color scaffoldBg = const Color(0XFFFBF6F0);
-  static Color borderGreen = const Color.fromARGB(255, 0, 17, 8);
+  static Color borderColor = const Color.fromARGB(255, 0, 17, 8);
   static Color white = Color(0xFFFFFFFF);
+  static Color black = Color(0xFF000000);
+  static Color grey = Colors.grey;
+
   static const MaterialColor primarySwatchColor = MaterialColor(
     0XFFF8774A, // 0% comes in here, this will be color picked if no shade is selected when defining a Color property which doesn’t require a swatch.
     <int, Color>{
