@@ -115,7 +115,7 @@ class _SignUpState extends State<SignUp> {
                               const Text('Already have an account? '),
                               Text(
                                 'Login',
-                                style: TextStyle(color: Palette.primaryGreen),
+                                style: TextStyle(color: Palette.primaryColor),
                               )
                             ]),
                       ),
