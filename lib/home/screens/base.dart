@@ -1,8 +1,14 @@
+import 'package:delivery_app/home/screens/cart/cart.dart';
 import 'package:delivery_app/home/screens/home.dart';
+import 'package:delivery_app/home/screens/orders/orders.dart';
 import 'package:delivery_app/home/screens/profile.dart';
+import 'package:delivery_app/util/drawer.dart';
+import 'package:delivery_app/util/helper.dart';
 import 'package:delivery_app/util/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+
+import 'favourites/favourites.dart';
 
 class BaseScreen extends StatefulWidget {
   BaseScreen({Key? key}) : super(key: key);
@@ -14,17 +20,22 @@ class BaseScreen extends StatefulWidget {
 class _BaseScreenState extends State<BaseScreen> {
   List<Widget> _pages = [
     Home(),
+    OrdersPage(),
+    Favourites(),
     Profile(),
   ];
   int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: SideBar(),
       floatingActionButton: Stack(
         children: [
           FloatingActionButton(
-            backgroundColor: Palette.primaryGreen,
-            onPressed: () {},
+            backgroundColor: Palette.primaryColor,
+            onPressed: () {
+              push(context, CartPage());
+            },
             child: Icon(
               Icons.shopping_cart_outlined,
               color: Palette.white,
@@ -55,7 +66,7 @@ class _BaseScreenState extends State<BaseScreen> {
           boxShadow: [
             BoxShadow(
                 offset: const Offset(0, 1),
-                color: Palette.primaryGreen.withOpacity(0.4),
+                color: Palette.primaryColor.withOpacity(0.4),
                 blurRadius: 4),
           ],
         ),
@@ -68,7 +79,7 @@ class _BaseScreenState extends State<BaseScreen> {
                 const Duration(milliseconds: 500), // tab animation duration
             gap: 8, // the tab button gap between icon and text
             color: Colors.black, // unselected icon color
-            activeColor: Palette.primaryGreen, // selected icon and text color
+            activeColor: Palette.primaryColor, // selected icon and text color
             iconSize: 24, // tab button icon size
             tabBackgroundColor: Palette.secondaryColor
                 .withOpacity(0.4)
@@ -90,27 +101,27 @@ class _BaseScreenState extends State<BaseScreen> {
                 padding: const EdgeInsets.all(10),
                 onPressed: () {
                   setState(() {
-                    // _selectedIndex = 1;
-                  });
-                },
-                icon: Icons.shopping_cart_outlined,
-                text: 'Cart',
-              ),
-              GButton(
-                padding: const EdgeInsets.all(10),
-                onPressed: () {
-                  setState(() {
-                    // _selectedIndex = 2;
-                  });
-                },
-                icon: Icons.message_outlined,
-                text: 'Messages',
-              ),
-              GButton(
-                padding: const EdgeInsets.all(10),
-                onPressed: () {
-                  setState(() {
                     _selectedIndex = 1;
+                  });
+                },
+                icon: Icons.shopify_sharp,
+                text: 'Orders',
+              ),
+              GButton(
+                padding: const EdgeInsets.all(10),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 2;
+                  });
+                },
+                icon: Icons.favorite_border,
+                text: 'Favourites',
+              ),
+              GButton(
+                padding: const EdgeInsets.all(10),
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 3;
                   });
                 },
                 icon: Icons.person_outline_outlined,
