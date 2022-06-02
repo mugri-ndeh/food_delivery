@@ -1,3 +1,4 @@
+import 'package:delivery_app/home/models/food_item.dart';
 import 'package:delivery_app/util/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -275,91 +276,187 @@ class _CustomContainer extends State<CustomContainer> {
 }
 
 class FoodCard extends StatelessWidget {
-  const FoodCard(
-      {Key? key,
-      required this.imagePath,
-      required this.foodName,
-      required this.price})
+  const FoodCard({Key? key, this.onTap, required this.foodItem})
       : super(key: key);
-  final String imagePath;
-  final String foodName;
-  final String price;
+  final Function()? onTap;
+  final FoodItem foodItem;
 
   @override
   Widget build(BuildContext context) {
-    return CustomContainer(
-        height: 150,
-        width: 180,
-        child: Column(
-          children: [
-            Stack(
-              alignment: Alignment.topCenter,
-              children: [
-                Container(
-                  height: 100,
-                  width: 180,
-                  child: ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(8),
-                          topRight: Radius.circular(8)),
-                      child: Image.asset(imagePath, fit: BoxFit.cover)),
-                ),
-                Positioned(
-                  top: 0,
-                  child: SizedBox(
-                    height: 50,
-                    width: 170,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        CustomContainer(
-                          padding: 2,
-                          height: 30,
-                          width: 50,
-                          child: Center(
-                              child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: const [
-                              Text('4.5'),
-                              Icon(
-                                Icons.star,
-                                size: 16,
-                                color: Colors.yellow,
-                              )
-                            ],
-                          )),
-                        ),
-                        const CustomContainer(
-                          height: 30,
-                          width: 30,
-                          child: Icon(
-                            Icons.heart_broken,
-                            color: Colors.red,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              width: 200,
-              height: 50,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+    return GestureDetector(
+      onTap: onTap ?? () {},
+      child: CustomContainer(
+          height: 150,
+          width: 180,
+          child: Column(
+            children: [
+              Stack(
+                alignment: Alignment.topCenter,
                 children: [
-                  Text(foodName),
-                  Text(
-                    '$price FCFA',
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  Container(
+                    height: 100,
+                    width: 180,
+                    child: ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(8),
+                            topRight: Radius.circular(8)),
+                        child:
+                            Image.asset(foodItem.imageSrc, fit: BoxFit.cover)),
+                  ),
+                  Positioned(
+                    top: 0,
+                    child: SizedBox(
+                      height: 50,
+                      width: 170,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CustomContainer(
+                            padding: 2,
+                            height: 30,
+                            width: 50,
+                            child: Center(
+                                child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: const [
+                                Text('4.5'),
+                                Icon(
+                                  Icons.star,
+                                  size: 16,
+                                  color: Colors.yellow,
+                                )
+                              ],
+                            )),
+                          ),
+                          const CustomContainer(
+                            height: 30,
+                            width: 30,
+                            child: Icon(
+                              Icons.favorite_outlined,
+                              color: Colors.red,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                   )
                 ],
               ),
-            )
-          ],
-        ));
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                width: 200,
+                height: 50,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(foodItem.name),
+                    Text(
+                      '${foodItem.price} XAF',
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+              )
+            ],
+          )),
+    );
+  }
+}
+
+class FavouriteCard extends StatelessWidget {
+  const FavouriteCard({Key? key, this.onTap, required this.foodItem})
+      : super(key: key);
+  final Function()? onTap;
+  final FoodItem foodItem;
+
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return GestureDetector(
+      onTap: onTap ?? () {},
+      child: Container(
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(18)),
+          height: 270,
+          width: size.width,
+          child: Column(
+            children: [
+              Stack(
+                alignment: Alignment.topCenter,
+                children: [
+                  Container(
+                    height: 200,
+                    width: size.width,
+                    child: ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(8),
+                            topRight: Radius.circular(8)),
+                        child:
+                            Image.asset(foodItem.imageSrc, fit: BoxFit.cover)),
+                  ),
+                  Positioned(
+                    top: 0,
+                    child: SizedBox(
+                      height: 50,
+                      width: size.width - 50,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CustomContainer(
+                            padding: 2,
+                            height: 30,
+                            width: 50,
+                            child: Center(
+                                child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: const [
+                                Text('4.5'),
+                                Icon(
+                                  Icons.star,
+                                  size: 16,
+                                  color: Colors.yellow,
+                                )
+                              ],
+                            )),
+                          ),
+                          const CustomContainer(
+                            height: 30,
+                            width: 30,
+                            child: Icon(
+                              Icons.favorite_rounded,
+                              color: Colors.red,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                decoration: BoxDecoration(
+                    color: Palette.white,
+                    borderRadius: BorderRadius.circular(16)),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                width: size.width,
+                height: 70,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      foodItem.name,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 28),
+                    ),
+                    Text(
+                      '${foodItem.price} XAF',
+                    )
+                  ],
+                ),
+              )
+            ],
+          )),
+    );
   }
 }
