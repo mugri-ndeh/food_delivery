@@ -1,71 +1,77 @@
 import 'package:delivery_app/auth/screens/login.dart';
+import 'package:delivery_app/util/helper.dart';
 import 'package:delivery_app/util/palette.dart';
+import 'package:delivery_app/util/theme.dart';
+import 'package:delivery_app/util/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [ChangeNotifierProvider(create: (context) => ThemeProvider())],
+    child: const MyApp(),
+  ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-          primarySwatch: Palette.primarySwatchColor,
-          textTheme: GoogleFonts.poppinsTextTheme(),
-          scaffoldBackgroundColor: Palette.scaffoldBg),
-      home: const LoginScreen(),
-    );
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late ThemeProvider themeprov;
+  getTheme() {
+    themeprov = Provider.of<ThemeProvider>(context, listen: false);
   }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getTheme();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+    return ChangeNotifierProvider(
+      create: (_) {
+        return themeprov;
+      },
+      child: Consumer<ThemeProvider>(builder: (_, prov, __) {
+        return MaterialApp(
+          title: 'Flutter Demo',
+          debugShowCheckedModeBanner: false,
+          theme: prov.darktheme ? customDarkTheme() : customLightTheme(),
+          // darkTheme: customDarkTheme(),
+          home: LoginScreen(),
+        );
+      }),
     );
+  }
+}
+
+class SplashScreen extends StatefulWidget {
+  SplashScreen({Key? key}) : super(key: key);
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Provider.of<ThemeProvider>(context)
+        .init()
+        .then((value) => push(context, LoginScreen()));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
