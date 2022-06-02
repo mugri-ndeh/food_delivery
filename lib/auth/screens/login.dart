@@ -77,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 onPressed: () {},
                                 icon: Icon(
                                   Icons.arrow_forward,
-                                  color: Palette.primaryGreen,
+                                  color: Palette.primaryColor,
                                 ))
                           ]),
                     ),
@@ -103,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               const Text('Don\'t have an account? '),
                               Text(
                                 'Sign up',
-                                style: TextStyle(color: Palette.primaryGreen),
+                                style: TextStyle(color: Palette.primaryColor),
                               )
                             ]),
                       ),
