@@ -21,11 +21,11 @@ class _AuthButtonState extends State<AuthButton> {
         height: 50,
         width: size.width * 0.8,
         decoration: BoxDecoration(
-            color: Palette.primaryGreen,
+            color: Palette.primaryColor,
             boxShadow: [
               BoxShadow(
                 offset: const Offset(2, 5),
-                color: Palette.primaryGreen.withOpacity(0.1),
+                color: Palette.primaryColor.withOpacity(0.1),
                 blurRadius: 15,
               )
             ],
@@ -37,6 +37,40 @@ class _AuthButtonState extends State<AuthButton> {
               color: Palette.white, fontWeight: FontWeight.bold, fontSize: 24),
         )),
       ),
+    );
+  }
+}
+
+class CistomCircularButton extends StatelessWidget {
+  const CistomCircularButton({
+    Key? key,
+    required this.outlined,
+    required this.onTap,
+    required this.icon,
+  }) : super(key: key);
+  final bool outlined;
+  final Function() onTap;
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+          height: 30,
+          width: 30,
+          decoration: outlined
+              ? BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  border: Border.all(color: Palette.primaryColor),
+                  color: Palette.scaffoldBg)
+              : BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: Palette.primaryColor),
+          child: Icon(
+            icon,
+            color: outlined ? Palette.primaryColor : Colors.white,
+          )),
     );
   }
 }
