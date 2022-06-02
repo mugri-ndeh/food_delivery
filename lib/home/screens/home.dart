@@ -1,7 +1,10 @@
 import 'dart:ui';
 
+import 'package:delivery_app/api/api.dart';
 import 'package:delivery_app/auth/widgets/custom_fields.dart';
 import 'package:delivery_app/home/models/food_item.dart';
+import 'package:delivery_app/home/screens/food_details/index.dart';
+import 'package:delivery_app/util/helper.dart';
 import 'package:delivery_app/util/palette.dart';
 import 'package:flutter/material.dart';
 
@@ -36,47 +39,53 @@ class _HomeState extends State<Home> {
 
   List<FoodItem> fooditems = [
     FoodItem(
-      id: '1',
-      price: 1000,
-      name: 'Eru',
-      imageSrc: 'assets/images/eru1.jpg',
-      category: 'category',
-    ),
+        id: '1',
+        price: 1000,
+        name: 'Eru',
+        imageSrc: 'assets/images/eru1.jpg',
+        category: 'category',
+        description:
+            'lorem ipsuem food u know is very good blah blah blah its heat having u here with us today u know lets have more food'),
     FoodItem(
-      id: '2',
-      price: 1000,
-      name: 'Achu',
-      imageSrc: 'assets/images/achu.jpg',
-      category: 'category',
-    ),
+        id: '2',
+        price: 1000,
+        name: 'Achu',
+        imageSrc: 'assets/images/achu.jpg',
+        category: 'category',
+        description:
+            'lorem ipsuem food u know is very good blah blah blah its heat having u here with us today u know lets have more food'),
     FoodItem(
-      id: '3',
-      price: 1000,
-      name: 'Ekpang',
-      imageSrc: 'assets/images/expang.jpg',
-      category: 'category',
-    ),
+        id: '3',
+        price: 1000,
+        name: 'Ekpang',
+        imageSrc: 'assets/images/expang.jpg',
+        category: 'category',
+        description:
+            'lorem ipsuem food u know is very good blah blah blah its heat having u here with us today u know lets have more food'),
     FoodItem(
-      id: '4',
-      price: 1000,
-      name: 'Puff puff and Beans',
-      imageSrc: 'assets/images/puffbeans.jpg',
-      category: 'category',
-    ),
+        id: '4',
+        price: 1000,
+        name: 'Puff puff and Beans',
+        imageSrc: 'assets/images/puffbeans.jpg',
+        category: 'category',
+        description:
+            'lorem ipsuem food u know is very good blah blah blah nametits heat having u here with us today u know lets have more food'),
     FoodItem(
-      id: '5',
-      price: 1000,
-      name: 'Deje',
-      imageSrc: 'assets/images/deje.jpeg',
-      category: 'category',
-    ),
+        id: '5',
+        price: 1000,
+        name: 'Deje',
+        imageSrc: 'assets/images/deje.jpeg',
+        category: 'category',
+        description:
+            'lorem ipsuem food u know is very good blah blah blah its heat having u here with us today u know lets have more food'),
     FoodItem(
-      id: '6',
-      price: 1000,
-      name: 'Rice and Stew',
-      imageSrc: 'assets/images/ricestew.jpeg',
-      category: 'category',
-    ),
+        id: '6',
+        price: 1000,
+        name: 'Rice and Stew',
+        imageSrc: 'assets/images/ricestew.jpeg',
+        category: 'category',
+        description:
+            'lorem ipsuem food u know is very good blah blah blah its heat having u here with us today u know lets have more food'),
   ];
 
   @override
@@ -88,9 +97,14 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         backgroundColor: Palette.scaffoldBg,
         elevation: 0,
-        leading: const Icon(
-          Icons.menu,
-          color: Colors.black,
+        leading: InkWell(
+          onTap: () {
+            Scaffold.of(context).openDrawer();
+          },
+          child: const Icon(
+            Icons.menu,
+            color: Colors.black,
+          ),
         ),
         actions: const [
           Icon(
@@ -118,7 +132,7 @@ class _HomeState extends State<Home> {
                     boxShadow: [
                       BoxShadow(
                           offset: const Offset(0, 1),
-                          color: Palette.primaryGreen.withOpacity(0.09),
+                          color: Palette.primaryColor.withOpacity(0.09),
                           blurRadius: 2),
                     ],
                   ),
@@ -163,7 +177,7 @@ class _HomeState extends State<Home> {
                 )
               ]),
             ),
-            Row(children: [
+            Row(children: const [
               Text(
                 'Categories',
                 style: TextStyle(fontWeight: FontWeight.bold),
@@ -196,11 +210,11 @@ class _HomeState extends State<Home> {
                                     blurRadius: 2,
                                     spreadRadius: 1,
                                     color:
-                                        Palette.primaryGreen.withOpacity(0.1))
+                                        Palette.primaryColor.withOpacity(0.1))
                               ],
                               borderRadius: BorderRadius.circular(20),
                               color: _selectedindex == index
-                                  ? Palette.primaryGreen
+                                  ? Palette.primaryColor
                                   : Palette.white,
                             ),
                             child: Row(
@@ -214,8 +228,8 @@ class _HomeState extends State<Home> {
                                       icons[index],
                                       size: 16,
                                       color: _selectedindex == index
-                                          ? Palette.borderGreen
-                                          : Palette.primaryGreen,
+                                          ? Palette.borderColor
+                                          : Palette.primaryColor,
                                     )),
                                 SizedBox(
                                   width: 5,
@@ -224,7 +238,7 @@ class _HomeState extends State<Home> {
                                     style: TextStyle(
                                         color: _selectedindex == index
                                             ? Palette.white
-                                            : Palette.borderGreen,
+                                            : Palette.borderColor,
                                         fontWeight: _selectedindex == index
                                             ? FontWeight.bold
                                             : FontWeight.w100,
@@ -257,9 +271,11 @@ class _HomeState extends State<Home> {
                           itemBuilder: (c, i) => Padding(
                             padding: const EdgeInsets.only(right: 8.0),
                             child: FoodCard(
-                              imagePath: fooditems[i].imageSrc,
-                              foodName: fooditems[i].name,
-                              price: '${fooditems[i].price}',
+                              foodItem: fooditems[i],
+                              onTap: () {
+                                push(context,
+                                    FoodDetail(foodItem: fooditems[i]));
+                              },
                             ),
                           ),
                         ),
@@ -267,7 +283,7 @@ class _HomeState extends State<Home> {
                       const SizedBox(height: 10),
                       Row(children: const [
                         Text(
-                          'Today\'s Menu',
+                          'Popular Today',
                           style: TextStyle(fontWeight: FontWeight.bold),
                         )
                       ]),
@@ -280,9 +296,12 @@ class _HomeState extends State<Home> {
                           itemBuilder: (c, i) => Padding(
                             padding: const EdgeInsets.only(right: 8.0),
                             child: FoodCard(
-                                imagePath: fooditems[i].imageSrc,
-                                foodName: fooditems[i].name,
-                                price: '${fooditems[i].price}'),
+                              onTap: () {
+                                push(context,
+                                    FoodDetail(foodItem: Api().fooditems[i]));
+                              },
+                              foodItem: fooditems[i],
+                            ),
                           ),
                         ),
                       )
