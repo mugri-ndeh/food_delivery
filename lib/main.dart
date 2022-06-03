@@ -1,4 +1,6 @@
+import 'package:delivery_app/auth/provider/auth.dart';
 import 'package:delivery_app/auth/screens/login.dart';
+import 'package:delivery_app/root.dart/root.dart';
 import 'package:delivery_app/util/helper.dart';
 import 'package:delivery_app/util/palette.dart';
 import 'package:delivery_app/util/theme.dart';
@@ -9,7 +11,14 @@ import 'package:provider/provider.dart';
 
 void main() {
   runApp(MultiProvider(
-    providers: [ChangeNotifierProvider(create: (context) => ThemeProvider())],
+    providers: [
+      ChangeNotifierProvider(
+        create: (context) => ThemeProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => Authentication(),
+      ),
+    ],
     child: const MyApp(),
   ));
 }
@@ -36,42 +45,53 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) {
-        return themeprov;
-      },
-      child: Consumer<ThemeProvider>(builder: (_, prov, __) {
-        return MaterialApp(
-          title: 'Flutter Demo',
-          debugShowCheckedModeBanner: false,
-          theme: prov.darktheme ? customDarkTheme() : customLightTheme(),
-          // darkTheme: customDarkTheme(),
-          home: LoginScreen(),
-        );
-      }),
+    return MaterialApp(
+      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      theme: customLightTheme(),
+      // darkTheme: customDarkTheme(),
+      home: Splash(),
     );
   }
 }
 
-class SplashScreen extends StatefulWidget {
-  SplashScreen({Key? key}) : super(key: key);
+class Splash extends StatefulWidget {
+  Splash({Key? key}) : super(key: key);
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  State<Splash> createState() => _SplashState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashState extends State<Splash> {
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    Provider.of<ThemeProvider>(context)
-        .init()
-        .then((value) => push(context, LoginScreen()));
+    Future.delayed(const Duration(seconds: 1), () {
+      Provider.of<Authentication>(context, listen: false)
+          .init()
+          .then((value) => pushReplacement(context, const AuthRoot()));
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      // backgroundColor: Palette.primaryGreen,
+      body: Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset('assets/images/logo.png'),
+          Text(
+            'FoodHub',
+            style: TextStyle(
+                color: Palette.primaryColor,
+                fontSize: 32,
+                fontWeight: FontWeight.w400),
+          )
+        ],
+      )),
+    );
   }
 }
