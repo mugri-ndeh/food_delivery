@@ -300,8 +300,8 @@ class FoodCard extends StatelessWidget {
                         borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(8),
                             topRight: Radius.circular(8)),
-                        child:
-                            Image.asset(foodItem.imageSrc, fit: BoxFit.cover)),
+                        child: Image.asset('assets/images/' + foodItem.image,
+                            fit: BoxFit.cover)),
                   ),
                   Positioned(
                     top: 0,
@@ -352,7 +352,7 @@ class FoodCard extends StatelessWidget {
                   children: [
                     Text(foodItem.name),
                     Text(
-                      '${foodItem.price} XAF',
+                      '${foodItem.price}',
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     )
                   ],
@@ -391,8 +391,7 @@ class FavouriteCard extends StatelessWidget {
                         borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(8),
                             topRight: Radius.circular(8)),
-                        child:
-                            Image.asset(foodItem.imageSrc, fit: BoxFit.cover)),
+                        child: Image.asset(foodItem.image, fit: BoxFit.cover)),
                   ),
                   Positioned(
                     top: 0,
