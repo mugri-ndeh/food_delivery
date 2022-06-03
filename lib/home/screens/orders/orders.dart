@@ -46,7 +46,7 @@ class _OrdersPageState extends State<OrdersPage> {
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(24),
                             child: Image.asset(
-                              Api().fooditems[4].imageSrc,
+                              Api().fooditems[4].image,
                               fit: BoxFit.cover,
                             )),
                       ),

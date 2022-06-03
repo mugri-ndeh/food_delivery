@@ -35,7 +35,7 @@ class _FoodDetailState extends State<FoodDetail> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                         child: Image.asset(
-                          widget.foodItem.imageSrc,
+                          widget.foodItem.image,
                           fit: BoxFit.fill,
                         ),
                       ),

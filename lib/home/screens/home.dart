@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:delivery_app/api/api.dart';
+import 'package:delivery_app/api/test_api.dart';
 import 'package:delivery_app/auth/widgets/custom_fields.dart';
 import 'package:delivery_app/home/models/food_item.dart';
 import 'package:delivery_app/home/screens/food_details/index.dart';
@@ -19,12 +20,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
   List<String> categories = [
     'Dishes',
     'Raw food',
@@ -37,69 +32,31 @@ class _HomeState extends State<Home> {
   ];
   int _selectedindex = 0;
 
-  List<FoodItem> fooditems = [
-    FoodItem(
-        id: '1',
-        price: 1000,
-        name: 'Eru',
-        imageSrc: 'assets/images/eru1.jpg',
-        category: 'category',
-        description:
-            'lorem ipsuem food u know is very good blah blah blah its heat having u here with us today u know lets have more food'),
-    FoodItem(
-        id: '2',
-        price: 1000,
-        name: 'Achu',
-        imageSrc: 'assets/images/achu.jpg',
-        category: 'category',
-        description:
-            'lorem ipsuem food u know is very good blah blah blah its heat having u here with us today u know lets have more food'),
-    FoodItem(
-        id: '3',
-        price: 1000,
-        name: 'Ekpang',
-        imageSrc: 'assets/images/expang.jpg',
-        category: 'category',
-        description:
-            'lorem ipsuem food u know is very good blah blah blah its heat having u here with us today u know lets have more food'),
-    FoodItem(
-        id: '4',
-        price: 1000,
-        name: 'Puff puff and Beans',
-        imageSrc: 'assets/images/puffbeans.jpg',
-        category: 'category',
-        description:
-            'lorem ipsuem food u know is very good blah blah blah nametits heat having u here with us today u know lets have more food'),
-    FoodItem(
-        id: '5',
-        price: 1000,
-        name: 'Deje',
-        imageSrc: 'assets/images/deje.jpeg',
-        category: 'category',
-        description:
-            'lorem ipsuem food u know is very good blah blah blah its heat having u here with us today u know lets have more food'),
-    FoodItem(
-        id: '6',
-        price: 1000,
-        name: 'Rice and Stew',
-        imageSrc: 'assets/images/ricestew.jpeg',
-        category: 'category',
-        description:
-            'lorem ipsuem food u know is very good blah blah blah its heat having u here with us today u know lets have more food'),
-  ];
+  List fooditems = [];
+
+  getFoods(int id) async {
+    fooditems = await TestApi.getFoods(id);
+
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getFoods(1);
+  }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    var emoji = Emojis.wavingHandDarkSkinTone;
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Palette.scaffoldBg,
         elevation: 0,
         leading: InkWell(
           onTap: () {
-            Scaffold.of(context).openDrawer();
+            // Scaffold.of(context).openDrawer();
+            getFoods(2);
           },
           child: const Icon(
             Icons.menu,
@@ -192,6 +149,7 @@ class _HomeState extends State<Home> {
                   onTap: () {
                     setState(() {
                       _selectedindex = index;
+                      getFoods(index + 1);
                     });
                   },
                   child: Padding(
@@ -231,9 +189,7 @@ class _HomeState extends State<Home> {
                                           ? Palette.borderColor
                                           : Palette.primaryColor,
                                     )),
-                                SizedBox(
-                                  width: 5,
-                                ),
+                                const SizedBox(width: 5),
                                 Text(categories[index],
                                     style: TextStyle(
                                         color: _selectedindex == index
@@ -307,8 +263,98 @@ class _HomeState extends State<Home> {
                       )
                     ],
                   ),
-                  Container(),
-                  Container(),
+                  ListView(
+                    children: [
+                      SizedBox(
+                        height: 150,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: fooditems.length,
+                          itemBuilder: (c, i) => Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: FoodCard(
+                              foodItem: fooditems[i],
+                              onTap: () {
+                                push(context,
+                                    FoodDetail(foodItem: fooditems[i]));
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Row(children: const [
+                        Text(
+                          'Popular Today',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        )
+                      ]),
+                      // const SizedBox(height: 10),
+                      // SizedBox(
+                      //   height: 150,
+                      //   child: ListView.builder(
+                      //     scrollDirection: Axis.horizontal,
+                      //     itemCount: fooditems.length,
+                      //     itemBuilder: (c, i) => Padding(
+                      //       padding: const EdgeInsets.only(right: 8.0),
+                      //       child: FoodCard(
+                      //         onTap: () {
+                      //           push(context,
+                      //               FoodDetail(foodItem: Api().fooditems[i]));
+                      //         },
+                      //         foodItem: fooditems[i],
+                      //       ),
+                      //     ),
+                      //   ),
+                      // )
+                    ],
+                  ),
+                  ListView(
+                    children: [
+                      SizedBox(
+                        height: 150,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: fooditems.length,
+                          itemBuilder: (c, i) => Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: FoodCard(
+                              foodItem: fooditems[i],
+                              onTap: () {
+                                push(context,
+                                    FoodDetail(foodItem: fooditems[i]));
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      // Row(children: const [
+                      //   Text(
+                      //     'Popular Today',
+                      //     style: TextStyle(fontWeight: FontWeight.bold),
+                      //   )
+                      // ]),
+                      // const SizedBox(height: 10),
+                      // SizedBox(
+                      //   height: 150,
+                      //   child: ListView.builder(
+                      //     scrollDirection: Axis.horizontal,
+                      //     itemCount: fooditems.length,
+                      //     itemBuilder: (c, i) => Padding(
+                      //       padding: const EdgeInsets.only(right: 8.0),
+                      //       child: FoodCard(
+                      //         onTap: () {
+                      //           push(context,
+                      //               FoodDetail(foodItem: Api().fooditems[i]));
+                      //         },
+                      //         foodItem: fooditems[i],
+                      //       ),
+                      //     ),
+                      //   ),
+                      // )
+                    ],
+                  ),
                 ],
               ),
             )

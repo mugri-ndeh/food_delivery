@@ -1,5 +1,7 @@
 import 'package:delivery_app/api/api.dart';
 import 'package:delivery_app/auth/widgets/custom_Button.dart';
+import 'package:delivery_app/home/screens/cart/checkout.dart';
+import 'package:delivery_app/util/helper.dart';
 import 'package:delivery_app/util/palette.dart';
 import 'package:flutter/material.dart';
 
@@ -57,7 +59,7 @@ class _CartPageState extends State<CartPage> {
                             child: ClipRRect(
                                 borderRadius: BorderRadius.circular(24),
                                 child: Image.asset(
-                                  Api().fooditems[index].imageSrc,
+                                  Api().fooditems[index].image,
                                   fit: BoxFit.cover,
                                 )),
                           ),
@@ -129,7 +131,11 @@ class _CartPageState extends State<CartPage> {
                   }),
             ),
             const SizedBox(height: 10),
-            AuthButton(text: 'Checkout', onTap: () {}),
+            AuthButton(
+                text: 'Checkout',
+                onTap: () {
+                  push(context, CheckoutPage());
+                }),
             const SizedBox(height: 10),
           ],
         ),

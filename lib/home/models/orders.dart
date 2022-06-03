@@ -5,11 +5,12 @@ class Order {
   List<FoodItem> foodItems;
   int quantity;
   String state;
+  String userId;
 
-  Order({
-    this.orderId = '',
-    this.foodItems = const [],
-    this.quantity = 0,
-    this.state = '',
-  });
+  Order(
+      {this.orderId = '',
+      this.foodItems = const [],
+      this.quantity = 0,
+      this.state = '',
+      this.userId = ''});
 }

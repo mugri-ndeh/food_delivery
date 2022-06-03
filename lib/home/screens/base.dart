@@ -1,7 +1,7 @@
 import 'package:delivery_app/home/screens/cart/cart.dart';
 import 'package:delivery_app/home/screens/home.dart';
 import 'package:delivery_app/home/screens/orders/orders.dart';
-import 'package:delivery_app/home/screens/profile.dart';
+import 'package:delivery_app/home/screens/profile/profile.dart';
 import 'package:delivery_app/util/drawer.dart';
 import 'package:delivery_app/util/helper.dart';
 import 'package:delivery_app/util/palette.dart';
