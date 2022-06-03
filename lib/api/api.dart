@@ -3,51 +3,51 @@ import 'package:delivery_app/home/models/food_item.dart';
 class Api {
   List<FoodItem> fooditems = [
     FoodItem(
-        id: '1',
-        price: 1000,
+        id: 1,
+        price: '1000XAF',
         name: 'Eru',
-        imageSrc: 'assets/images/eru1.jpg',
-        category: 'category',
+        image: 'assets/images/eru1.png',
+        catId: 1,
         description:
             'lorem ipsuem food u know is very good blah blah blah its heat having u here with us today u know lets have more food'),
     FoodItem(
-        id: '2',
-        price: 1000,
+        id: 2,
+        price: '1000XAF',
         name: 'Achu',
-        imageSrc: 'assets/images/achu.jpg',
-        category: 'category',
+        image: 'assets/images/achu.png',
+        catId: 1,
         description:
             'lorem ipsuem food u know is very good blah blah blah its heat having u here with us today u know lets have more food'),
     FoodItem(
-        id: '3',
-        price: 1000,
+        id: 3,
+        price: '1000XAF',
         name: 'Ekpang',
-        imageSrc: 'assets/images/expang.jpg',
-        category: 'category',
+        image: 'assets/images/expang.png',
+        catId: 1,
         description:
             'lorem ipsuem food u know is very good blah blah blah its heat having u here with us today u know lets have more food'),
     FoodItem(
-        id: '4',
-        price: 1000,
+        id: 4,
+        price: '1000XAF',
         name: 'Puff puff and Beans',
-        imageSrc: 'assets/images/puffbeans.jpg',
-        category: 'category',
+        image: 'assets/images/puffbeans.png',
+        catId: 1,
         description:
             'lorem ipsuem food u know is very good blah blah blah nametits heat having u here with us today u know lets have more food'),
     FoodItem(
-        id: '5',
-        price: 1000,
+        id: 5,
+        price: '1000XAF',
         name: 'Deje',
-        imageSrc: 'assets/images/deje.jpeg',
-        category: 'category',
+        image: 'assets/images/deje.png',
+        catId: 1,
         description:
             'lorem ipsuem food u know is very good blah blah blah its heat having u here with us today u know lets have more food'),
     FoodItem(
-        id: '6',
-        price: 1000,
+        id: 6,
+        price: '1000XAF',
         name: 'Rice and Stew',
-        imageSrc: 'assets/images/ricestew.jpeg',
-        category: 'category',
+        image: 'assets/images/ricestew.png',
+        catId: 1,
         description:
             'lorem ipsuem food u know is very good blah blah blah its heat having u here with us today u know lets have more food'),
   ];
