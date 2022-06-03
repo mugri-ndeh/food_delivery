@@ -1,9 +1,14 @@
+import 'package:delivery_app/api/test_api.dart';
+import 'package:delivery_app/auth/provider/auth.dart';
 import 'package:delivery_app/auth/screens/signup.dart';
 import 'package:delivery_app/auth/widgets/custom_Button.dart';
 import 'package:delivery_app/auth/widgets/custom_fields.dart';
+import 'package:delivery_app/home/screens/base.dart';
+import 'package:delivery_app/util/helper.dart';
 import 'package:delivery_app/util/palette.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -48,12 +53,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Image.asset('assets/images/delivery.png')),
                   ),
                   InputField(
+                    validator: validateEmail,
                     controller: _emailController,
                     hint: 'email',
                     icon: const Icon(Icons.mail),
                   ),
                   const SizedBox(height: 8),
                   InputField(
+                    validator: validatePassword,
                     controller: _passwordController,
                     hint: 'password',
                     password: true,
@@ -85,7 +92,27 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 30),
                   Center(
                       child: AuthButton(
-                    onTap: () {},
+                    onTap: () async {
+                      if (_formKey.currentState!.validate()) {
+                        showProgress(context, 'logging in .....', true);
+                        Provider.of<Authentication>(context, listen: false)
+                            .login(context, _emailController.text,
+                                _passwordController.text)
+                            .then(
+                          (value) {
+                            setState(() {
+                              hideProgress();
+                            });
+                            if (value != 'failed') {
+                              push(context, BaseScreen());
+                            } else {
+                              showSnackBar(
+                                  context, 'Please check email and password');
+                            }
+                          },
+                        );
+                      }
+                    },
                     text: 'Login',
                   )),
                   // const SizedBox(height: 50),
