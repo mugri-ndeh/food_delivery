@@ -138,6 +138,7 @@ class Authentication with ChangeNotifier {
 
   void logout() async {
     try {
+      await preferences.clear();
       setAuthState(AuthState.loggedOut);
       notifyListeners();
     } catch (e) {
