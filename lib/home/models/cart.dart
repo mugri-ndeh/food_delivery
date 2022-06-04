@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:delivery_app/home/models/food_item.dart';
 
 class Cart {
@@ -25,9 +27,10 @@ class Cart {
 }
 
 class CartItem {
+  String id;
   FoodItem? item;
   int qty;
-  CartItem({this.item, this.qty = 0});
+  CartItem({this.id = '', this.item, this.qty = 0});
   factory CartItem.fromJson(Map<String, dynamic> json) {
     return CartItem(
       qty: json['qty'],
@@ -40,5 +43,9 @@ class CartItem {
       'item': item,
       'qty': qty,
     };
+  }
+
+  getRandom() {
+    Random rand;
   }
 }
