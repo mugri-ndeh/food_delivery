@@ -104,7 +104,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               hideProgress();
                             });
                             if (value != 'failed') {
-                              push(context, BaseScreen());
+                              // push(context, BaseScreen());
+                              Provider.of<Authentication>(context,
+                                      listen: false)
+                                  .setAuthState(AuthState.loggedIn);
                             } else {
                               showSnackBar(
                                   context, 'Please check email and password');
@@ -118,8 +121,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   // const SizedBox(height: 50),
                   GestureDetector(
                     onTap: (() {
-                      Navigator.push(context,
-                          CupertinoPageRoute(builder: (context) => SignUp()));
+                      Provider.of<Authentication>(context, listen: false)
+                          .setAuthState(AuthState.signup);
                     }),
                     child: Center(
                       child: SizedBox(
