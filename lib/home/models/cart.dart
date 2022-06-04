@@ -38,7 +38,7 @@ class CartItem {
     );
   }
 
-  tojson() {
+  toJson() {
     return {
       'item': item,
       'qty': qty,
