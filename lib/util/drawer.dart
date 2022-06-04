@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:delivery_app/auth/provider/auth.dart';
 import 'package:delivery_app/util/palette.dart';
 import 'package:delivery_app/util/theme_provider.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class SideBar extends StatelessWidget {
       backgroundColor: Colors.transparent,
       elevation: 0,
       child: SafeArea(
-        child: Consumer<ThemeProvider>(builder: (_, theme, __) {
+        child: Consumer<Authentication>(builder: (_, user, __) {
           return Stack(
             children: [
               ClipRRect(
@@ -35,7 +36,7 @@ class SideBar extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 30,
-                          child: Image.asset('assets/Logo.png'),
+                          child: Image.asset('assets/images/logo.png'),
                           backgroundColor: Palette.primaryColor
                               .withOpacity(0.4)
                               .withOpacity(0.1),
@@ -43,14 +44,14 @@ class SideBar extends StatelessWidget {
                         const SizedBox(width: 10),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text(
+                          children: [
+                            const Text(
                               'Good day',
                               style: TextStyle(fontSize: 16),
                             ),
                             Text(
-                              '@maestro',
-                              style: TextStyle(
+                              '@${user.loggedUser!.username}',
+                              style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 20),
                             ),
                           ],
@@ -146,7 +147,7 @@ class SideBar extends StatelessWidget {
                   Expanded(
                     child: Align(
                         alignment: Alignment.bottomCenter,
-                        child: Consumer<ThemeProvider>(builder: (_, theme, __) {
+                        child: Consumer<Authentication>(builder: (_, auth, __) {
                           return Container(
                             padding: const EdgeInsets.symmetric(horizontal: 5),
                             width: size.width,
@@ -158,7 +159,7 @@ class SideBar extends StatelessWidget {
                                 ),
                               ),
                               onPressed: () {
-                                theme.darktheme = true;
+                                auth.logout();
                               },
                               icon: Icon(
                                 Icons.logout_outlined,
