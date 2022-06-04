@@ -6,7 +6,7 @@ import 'package:delivery_app/util/palette.dart';
 import 'package:flutter/material.dart';
 
 class CartPage extends StatefulWidget {
-  CartPage({Key? key}) : super(key: key);
+  const CartPage({Key? key}) : super(key: key);
 
   @override
   State<CartPage> createState() => _CartPageState();
@@ -134,7 +134,7 @@ class _CartPageState extends State<CartPage> {
             AuthButton(
                 text: 'Checkout',
                 onTap: () {
-                  push(context, CheckoutPage());
+                  push(context, const CheckoutPage());
                 }),
             const SizedBox(height: 10),
           ],

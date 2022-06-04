@@ -121,7 +121,7 @@ ThemeData customDarkTheme() {
     textTheme: _customDarkThemesTextTheme(poppins),
     scaffoldBackgroundColor: Colors.black,
     primaryColor: Palette.primaryColor,
-    indicatorColor: Color(0xFF807A6B),
+    indicatorColor: const Color(0xFF807A6B),
     dividerColor: Palette.grey.withOpacity(0.5),
     // accentColor: Color(0xFFFFF8E1),
     primaryIconTheme: darkTheme.primaryIconTheme.copyWith(
@@ -141,7 +141,7 @@ ThemeData customDarkTheme() {
     errorColor: Colors.red,
     colorScheme:
         ColorScheme.fromSwatch(primarySwatch: Palette.primarySwatchColor)
-            .copyWith(secondary: Color(0xFFFFF8E1)),
+            .copyWith(secondary: const Color(0xFFFFF8E1)),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         elevation: 0,

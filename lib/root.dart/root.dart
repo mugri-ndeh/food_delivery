@@ -17,7 +17,7 @@ class AuthRoot extends StatelessWidget {
       print(auth.loginState);
       switch (auth.loginState) {
         case AuthState.loggedIn:
-          return BaseScreen();
+          return const BaseScreen();
         case AuthState.loggedOut:
           return const LoginScreen();
         case AuthState.signup:

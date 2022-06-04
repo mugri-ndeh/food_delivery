@@ -11,30 +11,30 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'favourites/favourites.dart';
 
 class BaseScreen extends StatefulWidget {
-  BaseScreen({Key? key}) : super(key: key);
+  const BaseScreen({Key? key}) : super(key: key);
 
   @override
   State<BaseScreen> createState() => _BaseScreenState();
 }
 
 class _BaseScreenState extends State<BaseScreen> {
-  List<Widget> _pages = [
-    Home(),
-    OrdersPage(),
-    Favourites(),
-    Profile(),
+  final List<Widget> _pages = [
+    const Home(),
+    const OrdersPage(),
+    const Favourites(),
+    const Profile(),
   ];
   int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: SideBar(),
+      drawer: const SideBar(),
       floatingActionButton: Stack(
         children: [
           FloatingActionButton(
             backgroundColor: Palette.primaryColor,
             onPressed: () {
-              push(context, CartPage());
+              push(context, const CartPage());
             },
             child: Icon(
               Icons.shopping_cart_outlined,

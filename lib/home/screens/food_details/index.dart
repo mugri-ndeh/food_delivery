@@ -5,7 +5,7 @@ import 'package:delivery_app/util/palette.dart';
 import 'package:flutter/material.dart';
 
 class FoodDetail extends StatefulWidget {
-  FoodDetail({
+  const FoodDetail({
     Key? key,
     required this.foodItem,
   }) : super(key: key);
@@ -56,7 +56,7 @@ class _FoodDetailState extends State<FoodDetail> {
               ),
               Text(
                 widget.foodItem.name,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -79,7 +79,7 @@ class _FoodDetailState extends State<FoodDetail> {
                           outlined: true,
                           onTap: () {},
                         ),
-                        Text(
+                        const Text(
                           '2',
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
@@ -120,7 +120,7 @@ class _FoodDetailState extends State<FoodDetail> {
                           borderRadius: BorderRadius.circular(30),
                         ),
                       ),
-                      SizedBox(width: 5),
+                      const SizedBox(width: 5),
                       const Text('Add to cart'),
                     ],
                   ),

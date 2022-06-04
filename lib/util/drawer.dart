@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:delivery_app/auth/provider/auth.dart';
 import 'package:delivery_app/util/palette.dart';
-import 'package:delivery_app/util/theme_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';

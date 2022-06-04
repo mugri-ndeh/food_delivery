@@ -3,7 +3,7 @@ import 'package:delivery_app/util/palette.dart';
 import 'package:flutter/material.dart';
 
 class OrdersPage extends StatefulWidget {
-  OrdersPage({Key? key}) : super(key: key);
+  const OrdersPage({Key? key}) : super(key: key);
 
   @override
   State<OrdersPage> createState() => _OrdersPageState();
@@ -50,7 +50,7 @@ class _OrdersPageState extends State<OrdersPage> {
                               fit: BoxFit.cover,
                             )),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,12 +1,9 @@
 import 'package:delivery_app/auth/provider/auth.dart';
-import 'package:delivery_app/auth/screens/login.dart';
 import 'package:delivery_app/auth/widgets/custom_Button.dart';
 import 'package:delivery_app/auth/widgets/custom_fields.dart';
-import 'package:delivery_app/home/screens/base.dart';
 import 'package:delivery_app/models/customer.dart';
 import 'package:delivery_app/util/helper.dart';
 import 'package:delivery_app/util/palette.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';

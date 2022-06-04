@@ -1,10 +1,9 @@
-import 'package:delivery_app/api/api.dart';
 import 'package:delivery_app/auth/widgets/custom_Button.dart';
 import 'package:delivery_app/util/palette.dart';
 import 'package:flutter/material.dart';
 
 class CheckoutPage extends StatefulWidget {
-  CheckoutPage({Key? key}) : super(key: key);
+  const CheckoutPage({Key? key}) : super(key: key);
 
   @override
   State<CheckoutPage> createState() => _CheckoutState();

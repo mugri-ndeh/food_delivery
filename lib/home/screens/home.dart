@@ -1,19 +1,15 @@
-import 'dart:ui';
 
 import 'package:delivery_app/api/api.dart';
 import 'package:delivery_app/api/test_api.dart';
 import 'package:delivery_app/auth/widgets/custom_fields.dart';
-import 'package:delivery_app/home/models/food_item.dart';
 import 'package:delivery_app/home/screens/food_details/index.dart';
 import 'package:delivery_app/util/helper.dart';
 import 'package:delivery_app/util/palette.dart';
 import 'package:flutter/material.dart';
 
-import 'package:provider/provider.dart';
-import 'package:emojis/emojis.dart';
 
 class Home extends StatefulWidget {
-  Home({Key? key}) : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
@@ -36,8 +32,9 @@ class _HomeState extends State<Home> {
 
   getFoods(int id) async {
     fooditems = await TestApi.getFoods(id);
-
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
@@ -127,9 +124,9 @@ class _HomeState extends State<Home> {
                   top: 80,
                   child: SizedBox(
                       width: size.width,
-                      child: InputField(
+                      child: const InputField(
                         hint: 'What do you want to order',
-                        icon: const Icon(Icons.search),
+                        icon: Icon(Icons.search),
                       )),
                 )
               ]),

@@ -1,4 +1,3 @@
-import 'package:delivery_app/api/api.dart';
 import 'package:delivery_app/auth/widgets/custom_fields.dart';
 import 'package:delivery_app/home/models/food_item.dart';
 import 'package:delivery_app/home/screens/favourites/favourites_provider.dart';
@@ -6,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class Favourites extends StatefulWidget {
-  Favourites({Key? key}) : super(key: key);
+  const Favourites({Key? key}) : super(key: key);
 
   @override
   State<Favourites> createState() => _FavouritesState();

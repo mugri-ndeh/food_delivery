@@ -1,13 +1,10 @@
 import 'package:delivery_app/auth/provider/auth.dart';
-import 'package:delivery_app/auth/screens/login.dart';
 import 'package:delivery_app/home/screens/favourites/favourites_provider.dart';
 import 'package:delivery_app/root.dart/root.dart';
 import 'package:delivery_app/util/helper.dart';
-import 'package:delivery_app/util/palette.dart';
 import 'package:delivery_app/util/theme.dart';
 import 'package:delivery_app/util/theme_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -50,13 +47,13 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       theme: customLightTheme(),
       // darkTheme: customDarkTheme(),
-      home: Splash(),
+      home: const Splash(),
     );
   }
 }
 
 class Splash extends StatefulWidget {
-  Splash({Key? key}) : super(key: key);
+  const Splash({Key? key}) : super(key: key);
 
   @override
   State<Splash> createState() => _SplashState();

@@ -5,11 +5,10 @@ import 'package:flutter/material.dart';
 // import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:provider/provider.dart';
 
 class InputField extends StatefulWidget {
-  InputField({
+  const InputField({
     Key? key,
     this.icon,
     required this.hint,
@@ -128,7 +127,7 @@ class _PhoneInputState extends State<PhoneInput> {
               focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Palette.white)),
               hintText: 'Phone Number',
-              border: OutlineInputBorder()),
+              border: const OutlineInputBorder()),
           onChanged: (phone) {
             print(phone.completeNumber);
             setState(() {
@@ -141,7 +140,6 @@ class _PhoneInputState extends State<PhoneInput> {
         ),
       ),
     );
-    ;
   }
 }
 
@@ -214,7 +212,7 @@ class _PhoneInputState extends State<PhoneInput> {
 // }
 
 class PaymentMethodPopup extends StatefulWidget {
-  PaymentMethodPopup({Key? key}) : super(key: key);
+  const PaymentMethodPopup({Key? key}) : super(key: key);
 
   @override
   State<PaymentMethodPopup> createState() => _PaymentMethodPopupState();
@@ -306,7 +304,7 @@ class _FoodCardState extends State<FoodCard> {
               Stack(
                 alignment: Alignment.topCenter,
                 children: [
-                  Container(
+                  SizedBox(
                     height: 100,
                     width: 180,
                     child: ClipRRect(
@@ -379,7 +377,7 @@ class _FoodCardState extends State<FoodCard> {
                   children: [
                     Text(widget.foodItem.name),
                     Text(
-                      '${widget.foodItem.price}',
+                      widget.foodItem.price,
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     )
                   ],
@@ -411,7 +409,7 @@ class FavouriteCard extends StatelessWidget {
               Stack(
                 alignment: Alignment.topCenter,
                 children: [
-                  Container(
+                  SizedBox(
                     height: 200,
                     width: size.width,
                     child: ClipRRect(
@@ -477,7 +475,7 @@ class FavouriteCard extends StatelessWidget {
                           fontWeight: FontWeight.bold, fontSize: 28),
                     ),
                     Text(
-                      '${foodItem.price}',
+                      foodItem.price,
                     )
                   ],
                 ),

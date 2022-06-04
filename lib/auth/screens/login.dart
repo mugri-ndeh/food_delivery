@@ -1,12 +1,8 @@
-import 'package:delivery_app/api/test_api.dart';
 import 'package:delivery_app/auth/provider/auth.dart';
-import 'package:delivery_app/auth/screens/signup.dart';
 import 'package:delivery_app/auth/widgets/custom_Button.dart';
 import 'package:delivery_app/auth/widgets/custom_fields.dart';
-import 'package:delivery_app/home/screens/base.dart';
 import 'package:delivery_app/util/helper.dart';
 import 'package:delivery_app/util/palette.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

@@ -2,7 +2,7 @@ import 'package:delivery_app/util/palette.dart';
 import 'package:flutter/material.dart';
 
 class AuthButton extends StatefulWidget {
-  AuthButton({Key? key, required this.text, required this.onTap})
+  const AuthButton({Key? key, required this.text, required this.onTap})
       : super(key: key);
   final String text;
   final Function()? onTap;
