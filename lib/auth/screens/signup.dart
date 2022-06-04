@@ -1,3 +1,4 @@
+import 'package:delivery_app/auth/provider/auth.dart';
 import 'package:delivery_app/auth/screens/login.dart';
 import 'package:delivery_app/auth/widgets/custom_Button.dart';
 import 'package:delivery_app/auth/widgets/custom_fields.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:provider/provider.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -85,6 +87,7 @@ class _SignUpState extends State<SignUp> {
                   const SizedBox(height: 8),
 
                   InputField(
+                    validator: validateEmail,
                     controller: _emailController,
                     hint: 'email',
                     icon: const Icon(Icons.mail),
@@ -132,6 +135,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                   const SizedBox(height: 10),
                   InputField(
+                    validator: validatePassword,
                     controller: _passwordController,
                     hint: 'password',
                     password: true,
@@ -143,6 +147,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                   const SizedBox(height: 8),
                   InputField(
+                    validator: validatePassword,
                     controller: _confirmPasswordController,
                     hint: 'confirm password',
                     password: true,
@@ -157,20 +162,34 @@ class _SignUpState extends State<SignUp> {
                   Center(
                       child: AuthButton(
                     onTap: () {
-                      Customer user = Customer();
+                      if (_formKey.currentState!.validate()) {
+                        Customer user = Customer();
+                        user.firstname = _firstNameController.text;
+                        user.lastname = _lastNameController.text;
+                        user.username = _userNameController.text;
+                        user.email = _emailController.text;
+                        user.phonenumber = number;
+                        user.password = _passwordController.text;
 
-                      // push(context, Completeprofile());
-                      Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                              builder: (context) => BaseScreen()));
+                        // push(context, Completeprofile());
+                        Provider.of<Authentication>(context, listen: false)
+                            .signup(context, user)
+                            .then((value) => Provider.of<Authentication>(
+                                    context,
+                                    listen: false)
+                                .setAuthState(AuthState.login));
+                      }
+
                       // }
                     },
                     text: 'Sign Up',
                   )),
                   // const SizedBox(height: 50),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Provider.of<Authentication>(context, listen: false)
+                          .setAuthState(AuthState.login);
+                    },
                     child: Center(
                       child: SizedBox(
                         height: 50,
