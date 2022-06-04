@@ -17,11 +17,11 @@ class FavouritesHelper with ChangeNotifier {
     init();
   }
 
-  bool isfavourite(FoodItem song) {
+  bool isfavourite(FoodItem foodItem) {
     bool favourite = false;
     int i;
     for (i = 0; i < favourites.length; i++) {
-      if (song.id == FoodItem.fromJson(favourites[i]).id) {
+      if (foodItem.id == FoodItem.fromJson(favourites[i]).id) {
         favourite = true;
       }
     }
