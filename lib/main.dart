@@ -1,5 +1,6 @@
 import 'package:delivery_app/auth/provider/auth.dart';
 import 'package:delivery_app/auth/screens/login.dart';
+import 'package:delivery_app/home/screens/favourites/favourites_provider.dart';
 import 'package:delivery_app/root.dart/root.dart';
 import 'package:delivery_app/util/helper.dart';
 import 'package:delivery_app/util/palette.dart';
@@ -15,9 +16,8 @@ void main() {
       ChangeNotifierProvider(
         create: (context) => ThemeProvider(),
       ),
-      ChangeNotifierProvider(
-        create: (context) => Authentication(),
-      ),
+      ChangeNotifierProvider(create: (context) => Authentication()),
+      ChangeNotifierProvider(create: (context) => FavouritesHelper()),
     ],
     child: const MyApp(),
   ));
@@ -82,14 +82,7 @@ class _SplashState extends State<Splash> {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset('assets/images/logo.png'),
-          Text(
-            'FoodHub',
-            style: TextStyle(
-                color: Palette.primaryColor,
-                fontSize: 32,
-                fontWeight: FontWeight.w400),
-          )
+          Image.asset('assets/images/Logo.png'),
         ],
       )),
     );
