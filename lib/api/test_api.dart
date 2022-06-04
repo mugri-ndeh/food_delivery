@@ -7,7 +7,7 @@ class TestApi {
   static Future<String> signUp(Customer customer) async {
     var url = Uri.parse('${Env.URL_PREFIX}/customer/signup.php');
 
-    final response = await http.post(url, body: customer.toJson());
+    final response = await http.post(url, body: customer.toLoginJson());
 
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
@@ -59,5 +59,5 @@ class TestApi {
 }
 
 class Env {
-  static String URL_PREFIX = "http://10.0.2.2/food_app/functions";
+  static String URL_PREFIX = "http://10.0.2.2/food_app_php/functions";
 }
