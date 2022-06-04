@@ -1,5 +1,7 @@
+import 'package:delivery_app/auth/provider/auth.dart';
 import 'package:delivery_app/home/screens/orders/orders.dart';
 import 'package:delivery_app/home/screens/profile/edit_profile.dart';
+import 'package:delivery_app/models/customer.dart';
 import 'package:delivery_app/util/helper.dart';
 import 'package:flutter/material.dart';
 
@@ -13,15 +15,15 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  // late Authentication auth;
-  // late UserModel userModel;
+  late Authentication auth;
+  late Customer user;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    // auth = Provider.of<Authentication>(context, listen: false);
-    // userModel = auth.loggedUser!;
+    auth = Provider.of<Authentication>(context, listen: false);
+    user = auth.loggedUser!;
   }
 
   @override
@@ -70,11 +72,15 @@ class _ProfileState extends State<Profile> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Maestro',
+                  user.username,
                   style: Theme.of(context).textTheme.headline6,
                 ),
                 Text(
-                  '',
+                  '${user.firstname} ${user.lastname}',
+                  style: Theme.of(context).textTheme.bodyText2,
+                ),
+                Text(
+                  user.phonenumber,
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
               ],
