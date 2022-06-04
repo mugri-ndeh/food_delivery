@@ -1,10 +1,12 @@
 import 'package:delivery_app/home/models/food_item.dart';
+import 'package:delivery_app/home/screens/favourites/favourites_provider.dart';
 import 'package:delivery_app/util/palette.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:provider/provider.dart';
 
 class InputField extends StatefulWidget {
   InputField({
@@ -275,16 +277,27 @@ class _CustomContainer extends State<CustomContainer> {
   }
 }
 
-class FoodCard extends StatelessWidget {
+class FoodCard extends StatefulWidget {
   const FoodCard({Key? key, this.onTap, required this.foodItem})
       : super(key: key);
   final Function()? onTap;
   final FoodItem foodItem;
 
   @override
+  State<FoodCard> createState() => _FoodCardState();
+}
+
+class _FoodCardState extends State<FoodCard> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap ?? () {},
+      onTap: widget.onTap ?? () {},
       child: CustomContainer(
           height: 150,
           width: 180,
@@ -300,7 +313,8 @@ class FoodCard extends StatelessWidget {
                         borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(8),
                             topRight: Radius.circular(8)),
-                        child: Image.asset('assets/images/' + foodItem.image,
+                        child: Image.asset(
+                            'assets/images/' + widget.foodItem.image,
                             fit: BoxFit.cover)),
                   ),
                   Positioned(
@@ -329,14 +343,27 @@ class FoodCard extends StatelessWidget {
                               ],
                             )),
                           ),
-                          const CustomContainer(
-                            height: 30,
-                            width: 30,
-                            child: Icon(
-                              Icons.favorite_outlined,
-                              color: Colors.red,
-                            ),
-                          )
+                          Consumer<FavouritesHelper>(builder: (_, fav, __) {
+                            return GestureDetector(
+                              onTap: () {
+                                !fav.isfavourite(widget.foodItem)
+                                    ? fav.addFavourites(widget.foodItem)
+                                    : fav.remove(widget.foodItem);
+
+                                // setState(() {});
+                              },
+                              child: CustomContainer(
+                                height: 30,
+                                width: 30,
+                                child: Icon(
+                                  fav.isfavourite(widget.foodItem)
+                                      ? Icons.favorite_outlined
+                                      : Icons.favorite_border,
+                                  color: Colors.red,
+                                ),
+                              ),
+                            );
+                          })
                         ],
                       ),
                     ),
@@ -350,9 +377,9 @@ class FoodCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(foodItem.name),
+                    Text(widget.foodItem.name),
                     Text(
-                      '${foodItem.price}',
+                      '${widget.foodItem.price}',
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     )
                   ],
@@ -391,7 +418,8 @@ class FavouriteCard extends StatelessWidget {
                         borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(8),
                             topRight: Radius.circular(8)),
-                        child: Image.asset(foodItem.image, fit: BoxFit.cover)),
+                        child: Image.asset('assets/images/' + foodItem.image,
+                            fit: BoxFit.cover)),
                   ),
                   Positioned(
                     top: 0,
@@ -449,7 +477,7 @@ class FavouriteCard extends StatelessWidget {
                           fontWeight: FontWeight.bold, fontSize: 28),
                     ),
                     Text(
-                      '${foodItem.price} XAF',
+                      '${foodItem.price}',
                     )
                   ],
                 ),
