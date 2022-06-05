@@ -1,4 +1,5 @@
 import 'package:delivery_app/home/screens/cart/cart.dart';
+import 'package:delivery_app/home/screens/cart/cart_provider.dart';
 import 'package:delivery_app/home/screens/home.dart';
 import 'package:delivery_app/home/screens/orders/orders.dart';
 import 'package:delivery_app/home/screens/profile/profile.dart';
@@ -7,6 +8,7 @@ import 'package:delivery_app/util/helper.dart';
 import 'package:delivery_app/util/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:provider/provider.dart';
 
 import 'favourites/favourites.dart';
 
@@ -29,30 +31,32 @@ class _BaseScreenState extends State<BaseScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const SideBar(),
-      floatingActionButton: Stack(
-        children: [
-          FloatingActionButton(
-            backgroundColor: Palette.primaryColor,
-            onPressed: () {
-              push(context, const CartPage());
-            },
-            child: Icon(
-              Icons.shopping_cart_outlined,
-              color: Palette.white,
+      floatingActionButton: Consumer<CartHelper>(builder: (_, cart, __) {
+        return Stack(
+          children: [
+            FloatingActionButton(
+              backgroundColor: Palette.primaryColor,
+              onPressed: () {
+                push(context, const CartPage());
+              },
+              child: Icon(
+                Icons.shopping_cart_outlined,
+                color: Palette.white,
+              ),
+              tooltip: 'Cart',
             ),
-            tooltip: 'Cart',
-          ),
-          const Positioned(
-              right: 0,
-              child: CircleAvatar(
-                radius: 10,
-                child: Text(
-                  '0',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ))
-        ],
-      ),
+            Positioned(
+                right: 0,
+                child: CircleAvatar(
+                  radius: 10,
+                  child: Text(
+                    '${cart.cartItems.length}',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ))
+          ],
+        );
+      }),
       body: SafeArea(
         child: IndexedStack(
           index: _selectedIndex,
