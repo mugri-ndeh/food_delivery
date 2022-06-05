@@ -1,8 +1,12 @@
 import 'package:delivery_app/auth/widgets/custom_Button.dart';
 import 'package:delivery_app/auth/widgets/custom_fields.dart';
+import 'package:delivery_app/home/models/cart.dart';
 import 'package:delivery_app/home/models/food_item.dart';
+import 'package:delivery_app/home/screens/cart/cart_provider.dart';
+import 'package:delivery_app/util/helper.dart';
 import 'package:delivery_app/util/palette.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FoodDetail extends StatefulWidget {
   const FoodDetail({
@@ -16,6 +20,7 @@ class FoodDetail extends StatefulWidget {
 }
 
 class _FoodDetailState extends State<FoodDetail> {
+  int qty = 1;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -35,7 +40,7 @@ class _FoodDetailState extends State<FoodDetail> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                         child: Image.asset(
-                          widget.foodItem.image,
+                          'assets/images/' + widget.foodItem.image,
                           fit: BoxFit.fill,
                         ),
                       ),
@@ -56,13 +61,14 @@ class _FoodDetailState extends State<FoodDetail> {
               ),
               Text(
                 widget.foodItem.name,
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '${widget.foodItem.price} XAF',
+                    '${widget.foodItem.price}',
                     style: TextStyle(
                         color: Palette.primaryColor,
                         fontSize: 18,
@@ -77,17 +83,27 @@ class _FoodDetailState extends State<FoodDetail> {
                         CistomCircularButton(
                           icon: Icons.remove,
                           outlined: true,
-                          onTap: () {},
+                          onTap: () {
+                            setState(() {
+                              if (qty > 1) {
+                                qty--;
+                              }
+                            });
+                          },
                         ),
-                        const Text(
-                          '2',
-                          style: TextStyle(
+                        Text(
+                          '$qty',
+                          style: const TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         CistomCircularButton(
                           icon: Icons.add,
                           outlined: false,
-                          onTap: () {},
+                          onTap: () {
+                            setState(() {
+                              qty++;
+                            });
+                          },
                         )
                       ],
                     ),
@@ -98,33 +114,52 @@ class _FoodDetailState extends State<FoodDetail> {
               Expanded(
                   child: Align(
                 alignment: Alignment.bottomCenter,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 6,
-                    ),
-                  ),
-                  onPressed: () {},
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        child: Icon(
-                          Icons.shopping_bag,
-                          color: Palette.primaryColor,
-                        ),
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
-                          color: Palette.scaffoldBg,
-                          borderRadius: BorderRadius.circular(30),
-                        ),
+                child: Consumer<CartHelper>(builder: (_, cart, __) {
+                  return ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 6,
                       ),
-                      const SizedBox(width: 5),
-                      const Text('Add to cart'),
-                    ],
-                  ),
-                ),
+                    ),
+                    onPressed: () {
+                      bool onCart = cart.isCartitem(widget.foodItem);
+
+                      if (onCart) {
+                        showAlertDialog(
+                            context, 'Error', 'Item is already on cart');
+                      } else {
+                        CartItem item = CartItem(
+                          item: widget.foodItem.toJson(),
+                          qty: qty,
+                          id: (cart.cartItems.length + 1).toString(),
+                        );
+                        cart.addToCart(item);
+                        // showSnackBar(context, 'Item added successfully');
+                        showAlertDialog(
+                            context, 'Success', 'Item added successfully');
+                      }
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          child: Icon(
+                            Icons.shopping_bag,
+                            color: Palette.primaryColor,
+                          ),
+                          height: 30,
+                          width: 30,
+                          decoration: BoxDecoration(
+                            color: Palette.scaffoldBg,
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                        ),
+                        const SizedBox(width: 5),
+                        const Text('Add to cart'),
+                      ],
+                    ),
+                  );
+                }),
               ))
             ],
           ),
