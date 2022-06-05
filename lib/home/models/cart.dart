@@ -28,7 +28,7 @@ class Cart {
 
 class CartItem {
   String id;
-  FoodItem? item;
+  Map<String, dynamic>? item;
   int qty;
   CartItem({this.id = '', this.item, this.qty = 0});
   factory CartItem.fromJson(Map<String, dynamic> json) {
