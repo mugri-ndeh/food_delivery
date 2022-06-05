@@ -404,6 +404,7 @@ class FavouriteCard extends StatelessWidget {
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(18)),
           height: 270,
           width: size.width,
+          margin: const EdgeInsets.only(bottom: 8),
           child: Column(
             children: [
               Stack(
