@@ -7,6 +7,8 @@ import 'package:delivery_app/util/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'home/screens/cart/cart_provider.dart';
+
 void main() {
   runApp(MultiProvider(
     providers: [
@@ -15,6 +17,7 @@ void main() {
       ),
       ChangeNotifierProvider(create: (context) => Authentication()),
       ChangeNotifierProvider(create: (context) => FavouritesHelper()),
+      ChangeNotifierProvider(create: (context) => CartHelper()),
     ],
     child: const MyApp(),
   ));
@@ -79,7 +82,7 @@ class _SplashState extends State<Splash> {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset('assets/images/Logo.png'),
+          Image.asset('assets/images/logo.png'),
         ],
       )),
     );
