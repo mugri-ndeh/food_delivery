@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
 
 class CartHelper with ChangeNotifier {
-  final LocalStorage storage = LocalStorage('favourites');
+  final LocalStorage storage = LocalStorage('cart');
   List cartItems = [];
-  bool isFavourite = false;
+  bool isCartItem = false;
 
   init() async {
     cartItems = await getCartItems();
@@ -18,43 +18,45 @@ class CartHelper with ChangeNotifier {
     init();
   }
 
-  bool isfavourite(CartItem cartItem) {
-    bool favourite = false;
+  bool isCartitem(FoodItem foodItem) {
+    bool cartitem = false;
     int i;
     for (i = 0; i < cartItems.length; i++) {
-      if (cartItem.id == CartItem.fromJson(cartItems[i]).id) {
-        favourite = true;
+      if (foodItem.id == CartItem.fromJson(cartItems[i]).item!['id']) {
+        cartitem = true;
       }
     }
-    isFavourite = favourite;
+    isCartItem = cartitem;
     notifyListeners();
-    print(favourite);
-    return favourite;
+    print(cartitem);
+    return cartitem;
   }
 
-  addToCart(FoodItem foodItem) {
-    cartItems.add(foodItem.toJson());
+  addToCart(CartItem cartItem) {
+    cartItems.add(cartItem.toJson());
     _saveToStorage();
     notifyListeners();
   }
 
-  remove(CartItem cartItem) async {
+  remove(int id) async {
     await storage.ready;
 
-    cartItems.removeWhere((element) {
-      //print(element.values);
-      var val = false;
-      print(cartItem.toJson()['id']);
+    // cartItems.removeWhere((element) {
+    //   //print(element.values);
+    //   var val = false;
+    //   print(cartItem.toJson()['id']);
 
-      if (element['id'] == cartItem.toJson()['id']) {
-        val = true;
-      } else {
-        val = false;
-      }
-      return val;
+    //   if (element['id'] == cartItem.toJson()['id']) {
+    //     val = true;
+    //   } else {
+    //     val = false;
+    //   }
+    //   return val;
 
-      //return element.values == song.toJson().values;
-    });
+    //   //return element.values == song.toJson().values;
+    // });
+
+    cartItems.removeAt(id);
     print(cartItems);
     _saveToStorage();
     notifyListeners();
@@ -76,5 +78,12 @@ class CartHelper with ChangeNotifier {
     notifyListeners();
 
     return fav;
+  }
+
+  clearItems() async {
+    await storage.ready;
+    await storage.clear();
+    print('Cleared');
+    notifyListeners();
   }
 }
