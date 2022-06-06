@@ -1,24 +1,24 @@
-import 'package:delivery_app/home/models/cart.dart';
+import 'dart:convert';
 
 class Order {
-  String orderId;
-  CartItem? foodItems;
+  int orderId;
+  List? foodItems;
   int quantity;
   String state;
-  String userId;
+  int userId;
   String priceTotal;
 
   Order(
-      {this.orderId = '',
+      {this.orderId = 0,
       this.foodItems,
       this.quantity = 0,
       this.state = '',
       this.priceTotal = '0',
-      this.userId = ''});
+      this.userId = 0});
   factory Order.fromJson(Map<String, dynamic> json) {
     return Order(
       orderId: json['id'],
-      foodItems: json['food_items'],
+      foodItems: (json['food_items']!),
       quantity: json['qty'],
       state: json['o_state'],
       userId: json['user_id'],
