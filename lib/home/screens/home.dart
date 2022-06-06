@@ -27,18 +27,30 @@ class _HomeState extends State<Home> {
   int _selectedindex = 0;
 
   List fooditems = [];
+  List coocked = [];
+  List raw = [];
+  List drinks = [];
 
-  getFoods(int id) async {
-    fooditems = await TestApi.getFoods(id);
-    if (mounted) {
-      setState(() {});
-    }
+  bool isLoading = true;
+
+  init() async {
+    coocked = await getFoods(1);
+    raw = await getFoods(2);
+    drinks = await getFoods(3);
+    setState(() {
+      isLoading = false;
+      fooditems = coocked;
+    });
+  }
+
+  Future<List> getFoods(int id) async {
+    return await TestApi.getFoods(id);
   }
 
   @override
   void initState() {
     super.initState();
-    getFoods(1);
+    init();
   }
 
   @override
@@ -153,7 +165,21 @@ class _HomeState extends State<Home> {
                   onTap: () {
                     setState(() {
                       _selectedindex = index;
-                      getFoods(index + 1);
+
+                      switch (index) {
+                        case 0:
+                          fooditems = coocked;
+                          break;
+                        case 1:
+                          fooditems = raw;
+                          break;
+                        case 2:
+                          fooditems = drinks;
+                          break;
+                        default:
+                          fooditems = coocked;
+                          break;
+                      }
                     });
                   },
                   child: Padding(
@@ -221,143 +247,65 @@ class _HomeState extends State<Home> {
               child: IndexedStack(
                 index: _selectedindex,
                 children: [
-                  ListView(
-                    children: [
-                      SizedBox(
-                        height: 150,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: fooditems.length,
-                          itemBuilder: (c, i) => Padding(
-                            padding: const EdgeInsets.only(right: 8.0),
-                            child: FoodCard(
-                              foodItem: fooditems[i],
-                              onTap: () {
-                                push(context,
-                                    FoodDetail(foodItem: fooditems[i]));
-                              },
-                            ),
-                          ),
-                        ),
+                  GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      childAspectRatio: 1.1,
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 8,
+                      mainAxisSpacing: 8,
+                    ),
+                    scrollDirection: Axis.vertical,
+                    itemCount: fooditems.length,
+                    itemBuilder: (c, i) => Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: FoodCard(
+                        foodItem: fooditems[i],
+                        onTap: () {
+                          push(context, FoodDetail(foodItem: fooditems[i]));
+                        },
                       ),
-                      const SizedBox(height: 10),
-                      Row(children: const [
-                        Text(
-                          'Popular Today',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        )
-                      ]),
-                      const SizedBox(height: 10),
-                      SizedBox(
-                        height: 150,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: fooditems.length,
-                          itemBuilder: (c, i) => Padding(
-                            padding: const EdgeInsets.only(right: 8.0),
-                            child: FoodCard(
-                              onTap: () {
-                                push(context,
-                                    FoodDetail(foodItem: Api().fooditems[i]));
-                              },
-                              foodItem: fooditems[i],
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
+                    ),
                   ),
-                  ListView(
-                    children: [
-                      SizedBox(
-                        height: 150,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: fooditems.length,
-                          itemBuilder: (c, i) => Padding(
-                            padding: const EdgeInsets.only(right: 8.0),
-                            child: FoodCard(
-                              foodItem: fooditems[i],
-                              onTap: () {
-                                push(context,
-                                    FoodDetail(foodItem: fooditems[i]));
-                              },
-                            ),
-                          ),
-                        ),
+                  GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      childAspectRatio: 1.1,
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 8,
+                      mainAxisSpacing: 8,
+                    ),
+                    scrollDirection: Axis.vertical,
+                    itemCount: fooditems.length,
+                    itemBuilder: (c, i) => Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: FoodCard(
+                        foodItem: fooditems[i],
+                        onTap: () {
+                          push(context, FoodDetail(foodItem: fooditems[i]));
+                        },
                       ),
-                      const SizedBox(height: 10),
-                      Row(children: const [
-                        Text(
-                          'Popular Today',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        )
-                      ]),
-                      // const SizedBox(height: 10),
-                      // SizedBox(
-                      //   height: 150,
-                      //   child: ListView.builder(
-                      //     scrollDirection: Axis.horizontal,
-                      //     itemCount: fooditems.length,
-                      //     itemBuilder: (c, i) => Padding(
-                      //       padding: const EdgeInsets.only(right: 8.0),
-                      //       child: FoodCard(
-                      //         onTap: () {
-                      //           push(context,
-                      //               FoodDetail(foodItem: Api().fooditems[i]));
-                      //         },
-                      //         foodItem: fooditems[i],
-                      //       ),
-                      //     ),
-                      //   ),
-                      // )
-                    ],
+                    ),
                   ),
-                  ListView(
-                    children: [
-                      SizedBox(
-                        height: 150,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: fooditems.length,
-                          itemBuilder: (c, i) => Padding(
-                            padding: const EdgeInsets.only(right: 8.0),
-                            child: FoodCard(
-                              foodItem: fooditems[i],
-                              onTap: () {
-                                push(context,
-                                    FoodDetail(foodItem: fooditems[i]));
-                              },
-                            ),
-                          ),
-                        ),
+                  GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      childAspectRatio: 1.1,
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 8,
+                      mainAxisSpacing: 8,
+                    ),
+                    scrollDirection: Axis.vertical,
+                    itemCount: fooditems.length,
+                    itemBuilder: (c, i) => Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: FoodCard(
+                        foodItem: fooditems[i],
+                        onTap: () {
+                          push(context, FoodDetail(foodItem: fooditems[i]));
+                        },
                       ),
-                      const SizedBox(height: 10),
-                      // Row(children: const [
-                      //   Text(
-                      //     'Popular Today',
-                      //     style: TextStyle(fontWeight: FontWeight.bold),
-                      //   )
-                      // ]),
-                      // const SizedBox(height: 10),
-                      // SizedBox(
-                      //   height: 150,
-                      //   child: ListView.builder(
-                      //     scrollDirection: Axis.horizontal,
-                      //     itemCount: fooditems.length,
-                      //     itemBuilder: (c, i) => Padding(
-                      //       padding: const EdgeInsets.only(right: 8.0),
-                      //       child: FoodCard(
-                      //         onTap: () {
-                      //           push(context,
-                      //               FoodDetail(foodItem: Api().fooditems[i]));
-                      //         },
-                      //         foodItem: fooditems[i],
-                      //       ),
-                      //     ),
-                      //   ),
-                      // )
-                    ],
+                    ),
                   ),
                 ],
               ),
