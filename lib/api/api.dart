@@ -1,4 +1,8 @@
+import 'dart:convert';
+
+import 'package:delivery_app/api/test_api.dart';
 import 'package:delivery_app/home/models/food_item.dart';
+import 'package:http/http.dart' as http;
 
 class Api {
   List<FoodItem> fooditems = [
@@ -54,5 +58,27 @@ class Api {
 
   List<FoodItem> getFoodItems() {
     return fooditems;
+  }
+}
+
+class FoodsApi {
+  static Future<List<FoodItem>> getFoods(String query) async {
+    final url = Uri.parse('${Env.URL_PREFIX}/customer/get_all_foods.php');
+
+    final response = await http.post(url, body: {'query': query});
+
+    if (response.statusCode == 200) {
+      var result = json.decode(response.body);
+      if (result['state'] == 'failed') {
+        return [];
+      } else {
+        final List foodItems = result['state'];
+        return foodItems
+            .map((json) => FoodItem.fromJson(json as Map<String, dynamic>))
+            .toList();
+      }
+    } else {
+      throw Exception();
+    }
   }
 }
