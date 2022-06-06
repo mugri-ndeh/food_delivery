@@ -1,4 +1,3 @@
-
 import 'package:delivery_app/api/api.dart';
 import 'package:delivery_app/api/test_api.dart';
 import 'package:delivery_app/auth/widgets/custom_fields.dart';
@@ -6,7 +5,6 @@ import 'package:delivery_app/home/screens/food_details/index.dart';
 import 'package:delivery_app/util/helper.dart';
 import 'package:delivery_app/util/palette.dart';
 import 'package:flutter/material.dart';
-
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -52,18 +50,22 @@ class _HomeState extends State<Home> {
         elevation: 0,
         leading: InkWell(
           onTap: () {
-            // Scaffold.of(context).openDrawer();
-            getFoods(2);
+            Scaffold.of(context).openDrawer();
           },
           child: const Icon(
             Icons.menu,
             color: Colors.black,
           ),
         ),
-        actions: const [
-          Icon(
-            Icons.notifications,
-            color: Colors.black,
+        actions: [
+          GestureDetector(
+            onTap: () {
+              showCustomSearch(context, size, false);
+            },
+            child: Icon(
+              Icons.notifications,
+              color: Colors.black,
+            ),
           ),
           SizedBox(width: 5)
         ],
@@ -124,9 +126,14 @@ class _HomeState extends State<Home> {
                   top: 80,
                   child: SizedBox(
                       width: size.width,
-                      child: const InputField(
-                        hint: 'What do you want to order',
-                        icon: Icon(Icons.search),
+                      child: GestureDetector(
+                        onTap: () {
+                          showCustomSearch(context, size, false);
+                        },
+                        child: const SearchCardHome(
+                          hint: 'What do you want to order',
+                          icon: Icon(Icons.search),
+                        ),
                       )),
                 )
               ]),
