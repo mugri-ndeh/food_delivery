@@ -18,10 +18,10 @@ class Order {
   factory Order.fromJson(Map<String, dynamic> json) {
     return Order(
       orderId: json['id'],
-      foodItems: (json['food_items']!),
+      foodItems: jsonDecode(json['food_items']!),
       quantity: json['qty'],
       state: json['o_state'],
-      userId: json['user_id'],
+      userId: json['u_id'],
       priceTotal: json['price_total'],
     );
   }
@@ -35,5 +35,11 @@ class Order {
       'user_id': userId,
       'price_total': priceTotal,
     };
+  }
+
+  encodeList() {
+    for (var item in foodItems!) {
+      jsonEncode(item);
+    }
   }
 }
