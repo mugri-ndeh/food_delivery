@@ -1,4 +1,5 @@
 // import 'package:cached_network_image/cached_network_image.dart';
+import 'package:delivery_app/home/screens/search/search.dart';
 import 'package:delivery_app/util/palette.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -211,16 +212,16 @@ bool isDarkMode(BuildContext context) {
   }
 }
 
-// showCustomSearch(BuildContext context, Size size, bool pickup) {
-//   showModalBottomSheet(
-//     elevation: 0,
-//     isDismissible: false,
-//     enableDrag: false,
-//     isScrollControlled: true,
-//     context: context,
-//     builder: (context) => SearchScreen(pickup: pickup),
-//   );
-// }
+showCustomSearch(BuildContext context, Size size, bool pickup) {
+  showModalBottomSheet(
+    elevation: 0,
+    isDismissible: false,
+    enableDrag: false,
+    isScrollControlled: true,
+    context: context,
+    builder: (context) => SearchScreen(),
+  );
+}
 
 // InputDecoration getInputDecoration(
 //     {required String hint, required bool darkMode, required Color errorColor}) {
