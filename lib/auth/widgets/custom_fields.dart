@@ -1,5 +1,6 @@
 import 'package:delivery_app/home/models/food_item.dart';
 import 'package:delivery_app/home/screens/favourites/favourites_provider.dart';
+import 'package:delivery_app/util/helper.dart';
 import 'package:delivery_app/util/palette.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -16,10 +17,12 @@ class InputField extends StatefulWidget {
     this.password,
     this.controller,
     this.validator,
+    this.initial,
   }) : super(key: key);
+  final String? initial;
   final Icon? icon;
   final String hint;
-  final Icon? prefixIcon;
+  final Widget? prefixIcon;
   final bool? password;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
@@ -52,6 +55,7 @@ class _InputFieldState extends State<InputField> {
           children: [
             Expanded(
               child: TextFormField(
+                initialValue: widget.initial,
                 textCapitalization: widget.password ?? false
                     ? TextCapitalization.none
                     : TextCapitalization.words,
@@ -59,8 +63,103 @@ class _InputFieldState extends State<InputField> {
                 controller: widget.controller,
                 obscureText: widget.password == true ? !visible : false,
                 decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(vertical: 10),
+                  label: Text(widget.hint),
                   prefixIcon: widget.icon,
-                  hintText: widget.hint,
+                  // hintText: widget.hint,
+                  hintStyle: const TextStyle(color: Colors.grey),
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  errorBorder: InputBorder.none,
+                  focusedErrorBorder: InputBorder.none,
+                ),
+              ),
+            ),
+            widget.prefixIcon == null
+                ? const SizedBox.shrink()
+                : GestureDetector(
+                    child: visible
+                        ? widget.prefixIcon!
+                        : const Icon(
+                            Icons.visibility_off,
+                            color: Colors.grey,
+                          ),
+                    onTap: () {
+                      setState(() {
+                        visible = !visible;
+                      });
+                    },
+                  )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class SearchCardHome extends StatefulWidget {
+  const SearchCardHome({
+    Key? key,
+    this.icon,
+    required this.hint,
+    this.prefixIcon,
+    this.password,
+    this.controller,
+    this.validator,
+    this.initial,
+  }) : super(key: key);
+  final String? initial;
+  final Icon? icon;
+  final String hint;
+  final Widget? prefixIcon;
+  final bool? password;
+  final TextEditingController? controller;
+  final String? Function(String?)? validator;
+
+  @override
+  State<SearchCardHome> createState() => _SearchCardHomeState();
+}
+
+class _SearchCardHomeState extends State<SearchCardHome> {
+  bool visible = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 4),
+      height: 50,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+              offset: const Offset(0, 1),
+              color: Colors.grey.shade200,
+              blurRadius: 18),
+        ],
+      ),
+      child: SizedBox(
+        height: 45,
+        child: Row(
+          children: [
+            Expanded(
+              child: TextFormField(
+                enabled: false,
+                onTap: () {
+                  showCustomSearch(context, MediaQuery.of(context).size, false);
+                },
+                initialValue: widget.initial,
+                textCapitalization: widget.password ?? false
+                    ? TextCapitalization.none
+                    : TextCapitalization.words,
+                validator: widget.validator,
+                controller: widget.controller,
+                obscureText: widget.password == true ? !visible : false,
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(vertical: 10),
+                  label: Text(widget.hint),
+                  prefixIcon: widget.icon,
+                  // hintText: widget.hint,
                   hintStyle: const TextStyle(color: Colors.grey),
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
