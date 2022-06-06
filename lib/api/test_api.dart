@@ -52,8 +52,8 @@ class TestApi {
     final response = await http.post(url, body: {
       'id': id.toString(),
     });
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
+    // print('Response status: ${response.statusCode}');
+    // print('Response body: ${response.body}');
 
     Map<String, dynamic> result = json.decode(response.body);
     return result['state'];
@@ -64,8 +64,8 @@ class TestApi {
     final response = await http.post(url, body: {
       'id': id.toString(),
     });
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
+    // print('Response status: ${response.statusCode}');
+    // print('Response body: ${response.body}');
 
     Map<String, dynamic> result = json.decode(response.body);
     List foods =
