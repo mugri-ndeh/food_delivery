@@ -79,17 +79,19 @@ class SideBar extends StatelessWidget {
                               Icons.person_outlined,
                               color: Palette.black,
                             ),
-                            title: const Text(
+                            title: Text(
                               'Profile',
+                              style: TextStyle(color: Palette.black),
                             ),
                           ),
                           ListTile(
                             leading: Icon(
-                              Icons.card_membership_outlined,
+                              Icons.shopify_outlined,
                               color: Palette.black,
                             ),
-                            title: const Text(
-                              'Membership',
+                            title: Text(
+                              'Orders',
+                              style: TextStyle(color: Palette.black),
                             ),
                           ),
                           ListTile(
@@ -97,8 +99,9 @@ class SideBar extends StatelessWidget {
                               Icons.abc_outlined,
                               color: Palette.black,
                             ),
-                            title: const Text(
+                            title: Text(
                               'About',
+                              style: TextStyle(color: Palette.black),
                             ),
                           ),
                         ],
@@ -117,8 +120,9 @@ class SideBar extends StatelessWidget {
                               Icons.help_outline,
                               color: Palette.black,
                             ),
-                            title: const Text(
+                            title: Text(
                               'Help',
+                              style: TextStyle(color: Palette.black),
                             ),
                           ),
                           ListTile(
@@ -126,8 +130,9 @@ class SideBar extends StatelessWidget {
                               Icons.privacy_tip_outlined,
                               color: Palette.black,
                             ),
-                            title: const Text(
+                            title: Text(
                               'Terms of use',
+                              style: TextStyle(color: Palette.black),
                             ),
                           ),
                           ListTile(
@@ -135,8 +140,9 @@ class SideBar extends StatelessWidget {
                               Icons.document_scanner_outlined,
                               color: Palette.black,
                             ),
-                            title: const Text(
+                            title: Text(
                               'Privacy policy',
+                              style: TextStyle(color: Palette.black),
                             ),
                           ),
                         ],
