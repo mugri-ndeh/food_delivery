@@ -1,9 +1,13 @@
 import 'package:delivery_app/api/api.dart';
+import 'package:delivery_app/api/test_api.dart';
+import 'package:delivery_app/auth/provider/auth.dart';
 import 'package:delivery_app/auth/widgets/custom_Button.dart';
 import 'package:delivery_app/home/models/cart.dart';
 import 'package:delivery_app/home/models/food_item.dart';
+import 'package:delivery_app/home/models/orders.dart';
 import 'package:delivery_app/home/screens/cart/cart_provider.dart';
 import 'package:delivery_app/home/screens/cart/checkout.dart';
+import 'package:delivery_app/models/customer.dart';
 import 'package:delivery_app/util/helper.dart';
 import 'package:delivery_app/util/palette.dart';
 import 'package:flutter/material.dart';
@@ -29,12 +33,14 @@ class _CartPageState extends State<CartPage> {
   }
 
   late CartHelper cart;
+  late Customer user;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     cart = Provider.of<CartHelper>(context, listen: false);
+    user = Provider.of<Authentication>(context, listen: false).loggedUser!;
     getTotal(cart);
   }
 
@@ -170,19 +176,20 @@ class _CartPageState extends State<CartPage> {
               const SizedBox(height: 10),
               AuthButton(
                   text: 'Checkout',
-                  onTap: () {
+                  onTap: () async {
                     // push(context, const CheckoutPage());
 
+                    // TestApi.createOrder(Order(
+                    //   foodItems: cart.cartItems,
+                    //   quantity: cart.cartItems.length,
+                    //   state: 'pending',
+                    //   priceTotal: '',
+                    //   userId: user.id,
+                    // ));
                     // print(cart.cartItems);
-                    int total = 0;
-                    for (int i = 0; i < cart.cartItems.length; i++) {
-                      CartItem item = CartItem.fromJson(cart.cartItems[i]);
-                      FoodItem foodItem = FoodItem.fromJson(item.item!);
-                      total = total +
-                          int.parse(
-                              foodItem.price.replaceAll('XAF', '').trim());
-                    }
-                    print(total);
+                    // TestApi.getOrders(17);
+                    // var res = await FoodsApi.getFoods('potatoes');
+                    // print(res[0].name);
                   }),
               const SizedBox(height: 10),
             ],
