@@ -30,7 +30,7 @@ class Customer {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
+      'id': id.toString(),
       'firstname': firstname,
       'lastname': lastname,
       'username': username,
