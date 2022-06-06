@@ -179,13 +179,15 @@ class _CartPageState extends State<CartPage> {
                   onTap: () async {
                     // push(context, const CheckoutPage());
 
-                    // TestApi.createOrder(Order(
-                    //   foodItems: cart.cartItems,
-                    //   quantity: cart.cartItems.length,
-                    //   state: 'pending',
-                    //   priceTotal: '',
-                    //   userId: user.id,
-                    // ));
+                    TestApi.createOrder(Order(
+                      foodItems: cart.cartItems,
+                      quantity: cart.cartItems.length,
+                      state: 'pending',
+                      priceTotal: total.toString() + 'XAF',
+                      userId: user.id,
+                    )).then((value) {
+                      cart.clearItems();
+                    });
                     // print(cart.cartItems);
                     // TestApi.getOrders(17);
                     // var res = await FoodsApi.getFoods('potatoes');
