@@ -35,7 +35,7 @@ class SideBar extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 30,
-                          child: Image.asset('assets/images/logo.png'),
+                          child: Image.asset('assets/images/Logo.png'),
                           backgroundColor: Palette.primaryColor
                               .withOpacity(0.4)
                               .withOpacity(0.1),
