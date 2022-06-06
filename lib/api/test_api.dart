@@ -74,9 +74,10 @@ class TestApi {
   }
 
   static Future createOrder(Order order) async {
+    order.encodeList();
     var url = Uri.parse('${Env.URL_PREFIX}/customer/create_order.php');
     final response = await http.post(url, body: {
-      'food_items': order.foodItems.toString(),
+      'food_items': json.encode(order.foodItems),
       'qty': order.quantity.toString(),
       'o_state': order.state,
       'price_total': order.priceTotal,
@@ -84,6 +85,8 @@ class TestApi {
     });
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
+
+    if (response.statusCode == 200) {}
 
     Map<String, dynamic> result = json.decode(response.body);
     // List foods =
@@ -98,15 +101,42 @@ class TestApi {
     });
     // print('Response status: ${response.statusCode}');
     // print('Response body: ${response.body}');
+    // int orderId;
+    // List? foodItems;
+    // int quantity;
+    // String state;
+    // int userId;
+    // String priceTotal;
 
     Map<String, dynamic> result = json.decode(response.body);
+    List foodItems = (result['state']);
+    List testItems = [];
 
+    // print(foodItems[0]);
+
+    // for (var item in foodItems) {
+    //   testItems.add(Order.fromJson(item));
+
+    //   var foods = jsonDecode(item['food_items']);
+    //   // print(item['id']);
+    //   print('\n');
+    //   // for (var food in foods) {
+    //   //   print(food);
+    //   //   print('\n');
+    //   // }
+    // }
+
+    List orderItems =
+        result['state'].map((json) => Order.fromJson((json))).toList();
+    // print(jsonDecode(result['state'][0]['food_items'])[0]['item']);
+    // jsonDecode(result['state'][0]['food_items']);
+    // print(orderItems[0].foodItems[]);
     // print();
-    var lol = jsonEncode(result['state'][0]['food_items']);
-    var hey = json.decode(lol);
-    var hehe = json.decode('"' + hey + '"');
+    // var lol = jsonDecode(result['state'][0]['food_items']);
+    // var hey = json.decode(lol);
+    // var hehe = json.decode('"' + hey + '"');
 
-    print(hehe);
+    // print(jsonEncode(result['state'][0]['food_items'].replaceAll("\\", "")));
     // List orders = result['state'].map((json) => Order.fromJson(json)).toList();
 
     //  List orders = Order.fromJson(result['state']);
