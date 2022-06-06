@@ -26,8 +26,6 @@ class FavouritesHelper with ChangeNotifier {
       }
     }
     isFavourite = favourite;
-    notifyListeners();
-    print(favourite);
     return favourite;
   }
 
@@ -65,7 +63,7 @@ class FavouritesHelper with ChangeNotifier {
     // List existing = await getFavourites();
     // existing.add(song.toJson());
     storage.setItem('favourite', favourites);
-    print('SAVED CORRECTLY');
+    // print('SAVED CORRECTLY');
     notifyListeners();
   }
 
