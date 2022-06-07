@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 class InputField extends StatefulWidget {
   const InputField({
@@ -582,6 +583,37 @@ class FavouriteCard extends StatelessWidget {
               )
             ],
           )),
+    );
+  }
+}
+
+class ShimmerWidget extends StatelessWidget {
+  final double width;
+  final double height;
+  final ShapeBorder shapeBorder;
+
+  const ShimmerWidget.rectangular({
+    this.width = double.infinity,
+    required this.height,
+  }) : this.shapeBorder = const RoundedRectangleBorder();
+
+  const ShimmerWidget.circular({
+    this.width = double.infinity,
+    required this.height,
+    this.shapeBorder = const CircleBorder(),
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[400]!,
+      highlightColor: Colors.grey[300]!,
+      child: Container(
+        width: width,
+        height: height,
+        decoration:
+            ShapeDecoration(color: Colors.grey[400]!, shape: shapeBorder),
+      ),
     );
   }
 }
