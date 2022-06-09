@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:delivery_app/api/api.dart';
 import 'package:delivery_app/auth/widgets/custom_fields.dart';
 import 'package:delivery_app/home/models/food_item.dart';
@@ -18,6 +20,31 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final _searchController = TextEditingController();
   List<FoodItem> foodItems = [];
+  Timer? debouncer;
+  String query = '';
+
+  Future searchBook(String query) async => debounce(
+        () async {
+          final foods = await FoodsApi.getFoods(query);
+          if (!mounted) return;
+          setState(() {
+            this.query = query;
+            this.foodItems = foods;
+          });
+          print('SONG IS');
+        },
+      );
+
+  void debounce(
+    VoidCallback callback, {
+    Duration duration = const Duration(milliseconds: 1000),
+  }) {
+    if (debouncer != null) {
+      debouncer!.cancel();
+    }
+    debouncer = Timer(duration, callback);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,15 +70,15 @@ class _SearchScreenState extends State<SearchScreen> {
                         ),
                         Expanded(
                           child: InputField(
+                            onChanged: (str) {
+                              searchBook(_searchController.text);
+                            },
                             controller: _searchController,
                             hint: 'Search',
                             password: false,
                             prefixIcon: IconButton(
                               onPressed: () async {
-                                foodItems = await FoodsApi.getFoods(
-                                    _searchController.text);
-                                print(foodItems);
-                                setState(() {});
+                                searchBook(_searchController.text);
                               },
                               icon: const Icon(Icons.search),
                               color: Palette.buttonColor,
@@ -64,19 +91,23 @@ class _SearchScreenState extends State<SearchScreen> {
                   ],
                 ),
               ),
-              Expanded(
-                child: ListView.separated(
-                  itemBuilder: (context, index) => SearchResult(
-                    foodItem: foodItems[index],
-                  ),
-                  separatorBuilder: (context, index) => const Divider(
-                    thickness: 2,
-                  ),
-                  itemCount: foodItems.length,
-                  shrinkWrap: true,
-                  physics: const ClampingScrollPhysics(),
-                ),
-              ),
+              foodItems.isEmpty
+                  ? Center(
+                      child: Text('No results'),
+                    )
+                  : Expanded(
+                      child: ListView.separated(
+                        itemBuilder: (context, index) => SearchResult(
+                          foodItem: foodItems[index],
+                        ),
+                        separatorBuilder: (context, index) => const Divider(
+                          thickness: 2,
+                        ),
+                        itemCount: foodItems.length,
+                        shrinkWrap: true,
+                        physics: const ClampingScrollPhysics(),
+                      ),
+                    ),
             ],
           ),
         ),
