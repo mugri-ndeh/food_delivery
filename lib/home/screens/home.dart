@@ -135,7 +135,7 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 Positioned(
-                  top: 80,
+                  top: 90,
                   child: SizedBox(
                       width: size.width,
                       child: GestureDetector(
@@ -243,76 +243,111 @@ class _HomeState extends State<Home> {
               ),
             ),
             const SizedBox(height: 15),
-            Expanded(
-              child: IndexedStack(
-                index: _selectedindex,
-                children: [
-                  GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: 1.1,
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 8,
-                      mainAxisSpacing: 8,
+            isLoading
+                ? Expanded(
+                    child: GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          childAspectRatio: 1,
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 8,
+                          mainAxisSpacing: 8,
+                        ),
+                        // padding:
+                        //     EdgeInsets.symmetric(vertical: 5.0, horizontal: 10),
+                        itemBuilder: (context, index) {
+                          return Center(
+                              child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Container(
+                              child: buildShimmer(),
+                            ),
+                          ));
+                        }))
+                : Expanded(
+                    child: IndexedStack(
+                      index: _selectedindex,
+                      children: [
+                        GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            childAspectRatio: 1.1,
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 8,
+                            mainAxisSpacing: 8,
+                          ),
+                          scrollDirection: Axis.vertical,
+                          itemCount: fooditems.length,
+                          itemBuilder: (c, i) => Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: FoodCard(
+                              foodItem: fooditems[i],
+                              onTap: () {
+                                push(context,
+                                    FoodDetail(foodItem: fooditems[i]));
+                              },
+                            ),
+                          ),
+                        ),
+                        GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            childAspectRatio: 1.1,
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 8,
+                            mainAxisSpacing: 8,
+                          ),
+                          scrollDirection: Axis.vertical,
+                          itemCount: fooditems.length,
+                          itemBuilder: (c, i) => Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: FoodCard(
+                              foodItem: fooditems[i],
+                              onTap: () {
+                                push(context,
+                                    FoodDetail(foodItem: fooditems[i]));
+                              },
+                            ),
+                          ),
+                        ),
+                        GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            childAspectRatio: 1.1,
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 8,
+                            mainAxisSpacing: 8,
+                          ),
+                          scrollDirection: Axis.vertical,
+                          itemCount: fooditems.length,
+                          itemBuilder: (c, i) => Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: FoodCard(
+                              foodItem: fooditems[i],
+                              onTap: () {
+                                push(context,
+                                    FoodDetail(foodItem: fooditems[i]));
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    scrollDirection: Axis.vertical,
-                    itemCount: fooditems.length,
-                    itemBuilder: (c, i) => Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: FoodCard(
-                        foodItem: fooditems[i],
-                        onTap: () {
-                          push(context, FoodDetail(foodItem: fooditems[i]));
-                        },
-                      ),
-                    ),
-                  ),
-                  GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: 1.1,
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 8,
-                      mainAxisSpacing: 8,
-                    ),
-                    scrollDirection: Axis.vertical,
-                    itemCount: fooditems.length,
-                    itemBuilder: (c, i) => Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: FoodCard(
-                        foodItem: fooditems[i],
-                        onTap: () {
-                          push(context, FoodDetail(foodItem: fooditems[i]));
-                        },
-                      ),
-                    ),
-                  ),
-                  GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: 1.1,
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 8,
-                      mainAxisSpacing: 8,
-                    ),
-                    scrollDirection: Axis.vertical,
-                    itemCount: fooditems.length,
-                    itemBuilder: (c, i) => Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: FoodCard(
-                        foodItem: fooditems[i],
-                        onTap: () {
-                          push(context, FoodDetail(foodItem: fooditems[i]));
-                        },
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            )
+                  )
           ],
         ),
       ),
     );
   }
+
+  Widget buildShimmer() => ListTile(
+        leading: ShimmerWidget.rectangular(
+          height: 80,
+          width: 80,
+          // shapeBorder:
+          // RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        ),
+        title: ShimmerWidget.rectangular(height: 16),
+        subtitle: ShimmerWidget.rectangular(height: 14),
+      );
 }
