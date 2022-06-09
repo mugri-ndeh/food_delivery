@@ -18,12 +18,15 @@ class FoodItem {
 
   factory FoodItem.fromJson(Map<String, dynamic> json) {
     return FoodItem(
-        id: json['id'],
+        id: json['id'] is int ? json['id'] : int.parse(json['id']),
         price: json['price'],
         name: json['name'],
         image: json['image'],
-        catId: json['cat_id'],
-        ratId: json['rat_id'],
+        catId:
+            json['cat_id'] is int ? json['cat_id'] : int.parse(json['cat_id']),
+        ratId: json['rat_id'] is int
+            ? json['rat_id']
+            : int.parse(json['rat_id'] ?? '-1'),
         description: json['description']);
   }
 

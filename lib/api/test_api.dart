@@ -52,8 +52,8 @@ class TestApi {
     final response = await http.post(url, body: {
       'id': id.toString(),
     });
-    // print('Response status: ${response.statusCode}');
-    // print('Response body: ${response.body}');
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
 
     Map<String, dynamic> result = json.decode(response.body);
     return result['state'];
@@ -145,7 +145,7 @@ class TestApi {
 }
 
 class Env {
-  static String URL_PREFIX = "http://10.0.2.2/food_app_php/functions";
-  // static String URL_PREFIX =
-  //     "http://maestrofood.ultimatefreehost.in/food_app/functions";
+  // static String URL_PREFIX = "http://10.0.2.2/food_app/functions";
+  static String URL_PREFIX =
+      "https://maestrofood.000webhostapp.com/food_app/functions";
 }

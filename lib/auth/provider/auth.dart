@@ -53,11 +53,12 @@ class Authentication with ChangeNotifier {
 
   Future<Customer?> login(
       BuildContext context, String email, String password) async {
+    print('Logging in....');
     // try {
     var result = await TestApi.login(email, password);
     if (result == 'failed') {
-      setAuthState(AuthState.loggedOut);
       showSnackBar(context, 'There was an error try again');
+      setAuthState(AuthState.loggedOut);
       notifyListeners();
     } else {
       loggedUser = Customer.fromJson(result);

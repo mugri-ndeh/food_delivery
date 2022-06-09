@@ -18,7 +18,7 @@ class Customer {
 
   factory Customer.fromJson(Map<String, dynamic> json) {
     return Customer(
-      id: json['id'],
+      id: json['id'] is int ? json['id'] : int.parse(json['id']),
       firstname: json['firstname'],
       lastname: json['lastname'],
       username: json['username'],

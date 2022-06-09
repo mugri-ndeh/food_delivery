@@ -99,14 +99,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             setState(() {
                               hideProgress();
                             });
-                            if (value != 'failed') {
-                              // push(context, BaseScreen());
-                              Provider.of<Authentication>(context,
-                                      listen: false)
-                                  .setAuthState(AuthState.loggedIn);
-                            } else {
+                            if (value == 'failed') {
                               showSnackBar(
-                                  context, 'Please check email and password');
+                                  context, 'Invalid email or password');
                             }
                           },
                         );
