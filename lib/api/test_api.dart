@@ -145,7 +145,7 @@ class TestApi {
 }
 
 class Env {
-  static String URL_PREFIX = "http://10.0.2.2/food_app/functions";
+  static String URL_PREFIX = "http://10.0.2.2/food_app_php/functions";
   // static String URL_PREFIX =
   //     "http://maestrofood.ultimatefreehost.in/food_app/functions";
 }

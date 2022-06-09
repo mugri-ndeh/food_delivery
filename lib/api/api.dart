@@ -66,6 +66,7 @@ class FoodsApi {
     final url = Uri.parse('${Env.URL_PREFIX}/customer/get_all_foods.php');
 
     final response = await http.post(url, body: {'query': query});
+    print(response.body);
 
     if (response.statusCode == 200) {
       var result = json.decode(response.body);
