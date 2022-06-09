@@ -9,16 +9,17 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:provider/provider.dart';
 
 class InputField extends StatefulWidget {
-  const InputField({
-    Key? key,
-    this.icon,
-    required this.hint,
-    this.prefixIcon,
-    this.password,
-    this.controller,
-    this.validator,
-    this.initial,
-  }) : super(key: key);
+  const InputField(
+      {Key? key,
+      this.icon,
+      required this.hint,
+      this.prefixIcon,
+      this.password,
+      this.controller,
+      this.validator,
+      this.initial,
+      this.onChanged})
+      : super(key: key);
   final String? initial;
   final Icon? icon;
   final String hint;
@@ -26,6 +27,7 @@ class InputField extends StatefulWidget {
   final bool? password;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
+  final Function(String)? onChanged;
 
   @override
   State<InputField> createState() => _InputFieldState();
@@ -55,6 +57,7 @@ class _InputFieldState extends State<InputField> {
           children: [
             Expanded(
               child: TextFormField(
+                onChanged: widget.onChanged,
                 initialValue: widget.initial,
                 textCapitalization: widget.password ?? false
                     ? TextCapitalization.none
