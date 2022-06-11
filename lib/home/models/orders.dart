@@ -2,7 +2,7 @@ import 'dart:convert';
 
 class Order {
   int orderId;
-  List? foodItems;
+  List<Map<String, dynamic>>? foodItems;
   int quantity;
   String state;
   int userId;
@@ -26,6 +26,15 @@ class Order {
     );
   }
 
+  factory Order.fromBbJson(Map<String, dynamic> json) {
+    return Order(
+      orderId: json['id'],
+      quantity: json['qty'],
+      state: json['o_state'],
+      priceTotal: json['price_total'],
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'id': orderId,
@@ -42,4 +51,43 @@ class Order {
       jsonEncode(item);
     }
   }
+}
+
+class OrderR {
+  int orderId;
+  List<Map<String, dynamic>>? foodItems;
+  int quantity;
+  String state;
+  int userId;
+  String priceTotal;
+
+  OrderR(
+      {this.orderId = 0,
+      this.foodItems,
+      this.quantity = 0,
+      this.state = '',
+      this.priceTotal = '0',
+      this.userId = 0});
+  factory OrderR.fromJson(Map<String, dynamic> json) {
+    return OrderR(
+      orderId: json['id'],
+      foodItems: jsonDecode(json['food_items']!),
+      quantity: json['qty'],
+      state: json['o_state'],
+      userId: json['u_id'],
+      priceTotal: json['price_total'],
+    );
+  }
+}
+
+class OrderItem {
+  int id;
+  Map<String, dynamic>? foodItem;
+  int quantity;
+
+  OrderItem({
+    this.id = 0,
+    this.foodItem,
+    this.quantity = 0,
+  });
 }
