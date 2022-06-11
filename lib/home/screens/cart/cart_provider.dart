@@ -83,6 +83,7 @@ class CartHelper with ChangeNotifier {
   clearItems() async {
     await storage.ready;
     await storage.clear();
+    cartItems = [];
     print('Cleared');
     notifyListeners();
   }
