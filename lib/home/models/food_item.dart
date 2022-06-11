@@ -4,7 +4,6 @@ class FoodItem {
   String name;
   String image;
   int catId;
-  int? ratId;
   String description;
   FoodItem({
     this.id = 0,
@@ -12,7 +11,6 @@ class FoodItem {
     this.name = '',
     this.image = '',
     this.description = '',
-    this.ratId,
     this.catId = 0,
   });
 
@@ -24,9 +22,6 @@ class FoodItem {
         image: json['image'],
         catId:
             json['cat_id'] is int ? json['cat_id'] : int.parse(json['cat_id']),
-        ratId: json['rat_id'] is int
-            ? json['rat_id']
-            : int.parse(json['rat_id'] ?? '-1'),
         description: json['description']);
   }
 
@@ -37,7 +32,6 @@ class FoodItem {
       'name': name,
       'image': image,
       'cat_id': catId,
-      'rat_id': ratId,
       'description': description,
     };
   }
