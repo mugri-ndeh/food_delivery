@@ -180,16 +180,17 @@ class _CartPageState extends State<CartPage> {
                     // push(context, const CheckoutPage());
 
                     TestApi.createOrder(Order(
-                      foodItems: cart.cartItems,
+                      foodItems: (cart.cartItems).cast<Map<String, dynamic>>(),
                       quantity: cart.cartItems.length,
                       state: 'pending',
                       priceTotal: total.toString() + 'XAF',
                       userId: user.id,
                     )).then((value) {
                       cart.clearItems();
+                      showAlertDialog(
+                          context, 'Success', 'Order placed successfully');
                     });
                     // print(cart.cartItems);
-                    // TestApi.getOrders(17);
                     // var res = await FoodsApi.getFoods('potatoes');
                     // print(res[0].name);
                   }),
