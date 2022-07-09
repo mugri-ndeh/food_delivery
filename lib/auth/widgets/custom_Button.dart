@@ -41,8 +41,8 @@ class _AuthButtonState extends State<AuthButton> {
   }
 }
 
-class CistomCircularButton extends StatelessWidget {
-  const CistomCircularButton({
+class CustomCircularButton extends StatelessWidget {
+  const CustomCircularButton({
     Key? key,
     required this.outlined,
     required this.onTap,
