@@ -49,7 +49,7 @@ class _FoodDetailState extends State<FoodDetail> {
                     Positioned(
                       top: 10,
                       left: 10,
-                      child: CistomCircularButton(
+                      child: CustomCircularButton(
                         icon: Icons.arrow_back,
                         onTap: () {
                           Navigator.pop(context);
@@ -81,7 +81,7 @@ class _FoodDetailState extends State<FoodDetail> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        CistomCircularButton(
+                        CustomCircularButton(
                           icon: Icons.remove,
                           outlined: true,
                           onTap: () {
@@ -97,7 +97,7 @@ class _FoodDetailState extends State<FoodDetail> {
                           style: const TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
-                        CistomCircularButton(
+                        CustomCircularButton(
                           icon: Icons.add,
                           outlined: false,
                           onTap: () {
